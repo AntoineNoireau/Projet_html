@@ -1,14 +1,15 @@
 let nombreColonnes;
 
-fetch('recettes-ingredients.json')
+fetch("recettes-ingredient.json")
     .then(response => response.json())
     .then(data => {
+
         const jsonRecettes = data;
         
         var min = 1;
         var max = 2;
         var numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
-
+        console.log(numRecette);
         nombreColonnes = jsonRecettes[2].data.filter(item => item.id_recette === numRecette).length;
 
         console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
@@ -17,7 +18,7 @@ fetch('recettes-ingredients.json')
             .filter(item => item.id_recette === numRecette)
             .map(item => item.id_ingredient);
 
-        fetch('ingredients.json')
+        fetch("ingredients.json")
             .then(response => response.json())
             .then(data => {
                 const ingredientsJson = data;
