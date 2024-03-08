@@ -1,16 +1,16 @@
 [
-{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
-{"type":"database","name":"foodus"},
-{"type":"table","name":"ingredients","database":"foodus","data":
-[
-{"id":"1","nom":"oeuf","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcQKzZvn3FOxO75NH0wT7FJrKZngRPKxesXcM_zXWb7rLg&s"},
-{"id":"2","nom":"lait","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcTAntd2l6ej09Lqw9Canvkybh5JsV2cx4SnbcYEFreYiQ&s"},
-{"id":"3","nom":"sucre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcR3foiWWbz62oPiVB-uTWrUl3HLyVxV5Oszoyewe5Cpmw&s"},
-{"id":"4","nom":"farine","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcRv8_ZWYgDw0AnrQBkYhcV6lGoveSQumXGDNPYG9PNtSg&s"},
-{"id":"5","nom":"sel","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcT--_x2t93VYeQUzEdgKHWU7aeGmfGcNs2mWxYe1OhMoQ&s"},
-{"id":"6","nom":"poivre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcSmoM-zRJEhMyZVI7RQQiKTV18rYNesiFnJZQB1E5Y4ow&s"},
-{"id":"7","nom":"pomme de terre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcS76AWuXv2buV-xn7XhXxUFsiW9xRSTaa-m1qzUB_-Hww&s"},
-{"id":"8","nom":"beurre","image":"https:\/\/img-3.journaldesfemmes.fr\/wL8YsmuUZnKQprYtJFg0isTvxzY=\/1500x\/smart\/432c5298182d45818c7a1b140e6b21f1\/ccmcms-jdf\/10662027.jpg"}
-]
-}
-]
+    {"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+    {"type":"database","name":"foodus"},
+    {"type":"table","name":"ingredients","database":"foodus","data":
+    [
+    {"id":"1","nom":"oeuf","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcQKzZvn3FOxO75NH0wT7FJrKZngRPKxesXcM_zXWb7rLg&s"},
+    {"id":"2","nom":"lait","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcTAntd2l6ej09Lqw9Canvkybh5JsV2cx4SnbcYEFreYiQ&s"},
+    {"id":"3","nom":"sucre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcR3foiWWbz62oPiVB-uTWrUl3HLyVxV5Oszoyewe5Cpmw&s"},
+    {"id":"4","nom":"farine","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcRv8_ZWYgDw0AnrQBkYhcV6lGoveSQumXGDNPYG9PNtSg&s"},
+    {"id":"5","nom":"sel","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcT--_x2t93VYeQUzEdgKHWU7aeGmfGcNs2mWxYe1OhMoQ&s"},
+    {"id":"6","nom":"poivre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcSmoM-zRJEhMyZVI7RQQiKTV18rYNesiFnJZQB1E5Y4ow&s"},
+    {"id":"7","nom":"pomme de terre","image":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcS76AWuXv2buV-xn7XhXxUFsiW9xRSTaa-m1qzUB_-Hww&s"},
+    {"id":"8","nom":"beurre","image":"https:\/\/img-3.journaldesfemmes.fr\/wL8YsmuUZnKQprYtJFg0isTvxzY=\/1500x\/smart\/432c5298182d45818c7a1b140e6b21f1\/ccmcms-jdf\/10662027.jpg"}
+    ]
+    }
+    ]
