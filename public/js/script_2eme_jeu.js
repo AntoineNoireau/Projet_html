@@ -1,7 +1,7 @@
 let nombreColonnes;
 var numRecette
 ////////////////////affichage recette////////////////////////
-fetch("recettes-ingredients.json")
+fetch("/json/recettes-ingredients.json")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
@@ -17,7 +17,7 @@ fetch("recettes-ingredients.json")
       .filter(item => item.id_recette === numRecette)
       .map(item => item.id_ingredient);
 
-    fetch("ingredients.json")
+    fetch("/json/ingredients.json")
       .then(response => response.json())
       .then(data => {
         const ingredientsJson = data;
@@ -62,7 +62,7 @@ fetch("recettes-ingredients.json")
 
 //////////////////////////Jeu///////////////////////////////////
 
-fetch("recettes.json")
+fetch("/json/recettes.json")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
