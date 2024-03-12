@@ -1,14 +1,16 @@
 let nombreColonnes;
-var numRecette
+
+var min = 1;
+var max = 2;
+var numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
+
 ////////////////////affichage recette////////////////////////
 fetch("/json/recettes-ingredients.json")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
 
-    var min = 1;
-    var max = 2;
-    numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
+    
     nombreColonnes = jsonRecettes[2].data.filter(item => item.id_recette === numRecette).length;
 
     //console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
