@@ -67,7 +67,8 @@ fetch("/json/recettes.json")
   .then(data => {
     const jsonRecettes = data;
 
-    var nomRecette = jsonRecettes[2].data.filter(item => item.id_recette === numRecette)[0].nom;
+    console.log(jsonRecettes[2].data);
+    var nomRecette = jsonRecettes[2].data.filter(item => item.id === numRecette)[0].nom;
 
     let recetteChar = nomRecette.split('');
     let recetteCharSize = recetteChar.length;
