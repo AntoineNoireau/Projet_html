@@ -77,26 +77,67 @@ fetch("/json/recettes.json")
     for (i = 0; i < recetteCharSize; i++) {
       recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
     }
-    recetteTableauHtml += '<td><button onclick="verifRecette(' + recetteCharSize + ')">Valider</button></td>';
+    //console.log("recette:"+recetteChar);
+    recetteTableauHtml += '<td><button onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
     recetteTableauHtml += '</tr>';
-
-
 
     recetteTableauHtml += '</table>';
 
     document.getElementById('tableJeu1').innerHTML = recetteTableauHtml;
 
     //console.log(recetteChar);
-
-
-
   })
   .catch(error => console.error('Erreur', error));
 
-function verifRecette(recetteChar) {
+function verifRecette(nomRecette) {
+  
+  let recetteChar = nomRecette.split('');
+  console.log(nomRecette);
 
-  for (i = 0; i < recetteCharSize.length; i++) {
+  for (i = 0; i < recetteChar.length; i++) {    
     var case1 = document.getElementById(i + 1);
+
+    var orange = false;
+    var vert = false;
+
+    if(case1.value.toLowerCase() === recetteChar[i]){
+      vert = true;
+    }
+    else{
+      for(j = 0; j < recetteChar.length; j++)
+      {
+        if(j != i & case1.value.toLowerCase() === recetteChar[j])
+        {
+          orange = true;
+          break;
+        }
+      }
+    }
+    var count = 0;
+    if(vert) {
+        case1.style.backgroundColor = "green";
+        count++;
+    } else if(orange) {
+        case1.style.backgroundColor = "orange";
+    } else {
+        case1.style.backgroundColor = "white";
+    }
+    case1.readOnly = true;
+    if(count == recetteChar.length)
+    {
+      victoire();
+    }
+    else
+    {
+      nouvelleLigne(recetteChar);
+    }
   }
+}
+function nouvelleLigne(recetteChar)
+{
+
+}
+function victoire()
+{
 
 }
