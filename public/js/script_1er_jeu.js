@@ -64,6 +64,25 @@ ingredientForm.addEventListener("submit", function (event) {
     image.src = "png/gris.png";
     resultatsDiv.appendChild(image);
 
+    const icone = document.createElement("img");
+    icone.src = "png/oeuf.png";
+    icone.style.position = "absolute";
+    
+    // Positionner l'icône au centre de l'image gris
+    const grisRect = image.getBoundingClientRect();
+    const iconeWidth = icone.offsetWidth;
+    const iconeHeight = icone.offsetHeight;
+    const iconeTop = grisRect.top + (grisRect.height - iconeHeight) / 2;
+    const iconeLeft = grisRect.left + (grisRect.width - iconeWidth) / 2;
+    icone.style.marginTop = "-25px"; 
+    icone.style.marginLeft = "-25px"; 
+    
+    icone.style.top = iconeTop + "px";
+    icone.style.left = iconeLeft + "px";
+    
+    icone.style.zIndex = "1"; 
+    resultatsDiv.appendChild(icone);
+
 
   } else {
     console.log("Aucun ingrédient sélectionné.");
@@ -85,6 +104,7 @@ ingredientForm.addEventListener("submit", function (event) {
       }
     }
     selectedIngredientsArray = [];
+    console.log("Verif = " +verifArray)
 
 
     const resultatsDiv = document.getElementById("resultats");
@@ -94,20 +114,23 @@ ingredientForm.addEventListener("submit", function (event) {
       
       return new Promise(resolve => {
         setTimeout(() => {
-          if (index < verifArray.length) {
+          if (index < 5) //car une div aura 10 element
+          {
             
             if(nbproposion==0)
             {
 
-               image = resultatsDiv.children[index]; 
+               image = resultatsDiv.children[index*2]; 
             }
             else
             {
 
-               image = resultatsDiv.children[resultatsDiv.childElementCount - 6 +index];
+               image = resultatsDiv.children[resultatsDiv.childElementCount - 11 +index*2];
+               //indice a modifié en fonction du nombre d'éléments dans la div
             }
             // Sélectionne l'image existante
             setTimeout(() => {
+              console.log("verif[index] = "+verifArray[index*2])
               if (verifArray[index] === 1) {
                 image.src = "png/vert.png"; // Image pour un ingrédient bien placé
               } else if (verifArray[index] === 2) {
@@ -116,7 +139,7 @@ ingredientForm.addEventListener("submit", function (event) {
                 image.src = "png/rouge.png"; // Image pour un ingrédient absent
               }
             }, 50); // Délai avant de remplacer l'image grise par l'image colorée
-            remplacerImagesProgressivement(index + 1).then(resolve);
+            remplacerImagesProgressivement(index+1).then(resolve);
           } else {
             resolve();
             
@@ -127,13 +150,12 @@ ingredientForm.addEventListener("submit", function (event) {
 
     // Début de la séquence de remplacement progressif
     remplacerImagesProgressivement(0).then(() => {
-
-      
-      
+      console.log(resultatsDiv)
+      console.log(resultatsDiv.children[0])
       nbproposion ++;
     });
     resultatsDiv.appendChild(document.createElement("br"));
-    console.log(resultatsDiv)
+
     
     
 
