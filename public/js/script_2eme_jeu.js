@@ -1,17 +1,18 @@
 let nombreColonnes;
-var numRecette
+
+var min = 1;
+var max = 2;
+var numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
+var nbTour = 1;
+
+
 ////////////////////affichage recette////////////////////////
 fetch("/json/recettes-ingredients.json")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
 
-    var min = 1;
-    var max = 2;
-    numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
     nombreColonnes = jsonRecettes[2].data.filter(item => item.id_recette === numRecette).length;
-
-    //console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
 
     const ingredientsIds = jsonRecettes[2].data
       .filter(item => item.id_recette === numRecette)
@@ -26,28 +27,18 @@ fetch("/json/recettes-ingredients.json")
 
         ingredientsIds.forEach(ingredientId => {
           const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
-          //console.log(ingredient);
-          //console.log('id=' + ingredientId);
+
           if (ingredient) {
-            //console.log(ingredient.nom);
-
             tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
-            //console.log('tableauHtml=' + tableauHtml);
-
           }
         });
         tableauHtml += '</tr><tr>';
 
         ingredientsIds.forEach(ingredientId => {
           const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
-          //console.log(ingredient);
-          //console.log('id=' + ingredientId);
+
           if (ingredient) {
-            //console.log(ingredient.nom);
-
             tableauHtml += '<td>' + ingredient.nom + '</td>';
-            //console.log('tableauHtml=' + tableauHtml);
-
           }
         });
 
@@ -67,35 +58,133 @@ fetch("/json/recettes.json")
   .then(data => {
     const jsonRecettes = data;
 
-    console.log(jsonRecettes[2].data);
     var nomRecette = jsonRecettes[2].data.filter(item => item.id === numRecette)[0].nom;
 
     let recetteChar = nomRecette.split('');
     let recetteCharSize = recetteChar.length;
     var recetteTableauHtml = '<table><tr>';
+
     for (i = 0; i < recetteCharSize; i++) {
       recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
     }
-    recetteTableauHtml += '<td><button onclick="verifRecette(' + recetteCharSize + ')">Valider</button></td>';
+    recetteTableauHtml += '<td><button onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
     recetteTableauHtml += '</tr>';
-
-
 
     recetteTableauHtml += '</table>';
 
     document.getElementById('tableJeu1').innerHTML = recetteTableauHtml;
 
-    //console.log(recetteChar);
+    var inputs = document.querySelectorAll("#tableJeu1 input[type='text']");
+    var lastRowFirstInput = inputs[inputs.length - recetteCharSize];
+    lastRowFirstInput.focus();
 
-
-
+    inputs.forEach(function(input, index) {
+      input.addEventListener('input', function() {
+        if (this.value.length === this.maxLength) {
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        }
+      });
+    });
   })
   .catch(error => console.error('Erreur', error));
 
-function verifRecette(recetteChar) {
+function verifRecette(nomRecette) {
 
-  for (i = 0; i < recetteCharSize.length; i++) {
-    var case1 = document.getElementById(i + 1);
+  let recetteChar = nomRecette.split('');
+  var count = 0;
+  for (i = 0; i < recetteChar.length; i++) {  
+
+    var case1 = document.getElementById(i + 1+(nbTour-1)*recetteChar.length);
+
+    var orange = false;
+    var vert = false;
+
+    if(case1.value.toLowerCase() === recetteChar[i]){
+      vert = true;
+    }
+    else{
+      for(j = 0; j < recetteChar.length; j++)
+      {
+        if(j != i & case1.value.toLowerCase() === recetteChar[j])
+        {
+          orange = true;
+          break;
+        }
+      }
+    }
+    
+    if(vert) {
+        case1.style.backgroundColor = "green";
+        count++;
+    } else if(orange) {
+        case1.style.backgroundColor = "orange";
+    } else {
+        case1.style.backgroundColor = "white";
+    }
+    case1.readOnly = true;
+    
   }
 
+  if(count == recetteChar.length)
+    {
+      victoire();
+    }
+    else
+    {
+      if(nbTour == 6)
+      {
+        perdu();
+      }
+      else {
+        nbTour++;
+        nouvelleLigne(nomRecette, nbTour);  
+      }          
+    }
 }
+function nouvelleLigne(nomRecette, nb)
+{
+  let recetteChar = nomRecette.split('');
+  let recetteCharSize = recetteChar.length;
+  var recetteTableauHtml = '<table><tr>';
+  for (i = 0; i < recetteCharSize; i++) {
+    recetteTableauHtml += '<td> <input type="text" id="' + (i + 1+ (nb-1)*recetteCharSize) + '" minlength="0" maxlength="1" size="1" /></td>';
+  }
+  recetteTableauHtml += '</tr>';
+
+  recetteTableauHtml += '</table>';
+
+  document.getElementById('tableJeu'+nb).innerHTML = recetteTableauHtml;
+
+  var lastRowInputs = document.querySelectorAll("#tableJeu" + nb + " input[type='text']");
+  var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
+  lastRowFirstInput.focus();
+  
+  var inputs = document.querySelectorAll("#tableJeu" + nb + " input[type='text']");
+  inputs.forEach(function(input, index) {
+    input.addEventListener('input', function() {
+      if (this.value.length === this.maxLength) {
+        if (index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      }
+    });
+  });
+}
+function victoire()
+{
+  alert("Vous avez gagné");
+}
+function perdu()
+{
+  alert("Vous avez perdu");
+
+}
+
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Enter") {
+      document.querySelector("#tableJeu1 button").click();
+  }
+});
