@@ -1,7 +1,7 @@
 let nombreColonnes;
 var numRecette
 ////////////////////affichage recette////////////////////////
-fetch("/json/recettes-ingredients.json")
+fetch("http://localhost:3000/recettes-ingredients")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
@@ -13,11 +13,11 @@ fetch("/json/recettes-ingredients.json")
 
     //console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
 
-    const ingredientsIds = jsonRecettes[2].data
+    const ingredientsIds = jsonRecettes.data
       .filter(item => item.id_recette === numRecette)
       .map(item => item.id_ingredient);
 
-    fetch("/json/ingredients.json")
+    fetch("http://localhost:3000/ingredients")
       .then(response => response.json())
       .then(data => {
         const ingredientsJson = data;
@@ -25,7 +25,7 @@ fetch("/json/recettes-ingredients.json")
         var tableauHtml = '<table> <tr>';
 
         ingredientsIds.forEach(ingredientId => {
-          const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
+          const ingredient = ingredientsJson.data.find(ingredient => ingredient.id === ingredientId);
           //console.log(ingredient);
           //console.log('id=' + ingredientId);
           if (ingredient) {
@@ -39,7 +39,7 @@ fetch("/json/recettes-ingredients.json")
         tableauHtml += '</tr><tr>';
 
         ingredientsIds.forEach(ingredientId => {
-          const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
+          const ingredient = ingredientsJson.data.find(ingredient => ingredient.id === ingredientId);
           //console.log(ingredient);
           //console.log('id=' + ingredientId);
           if (ingredient) {
@@ -62,12 +62,12 @@ fetch("/json/recettes-ingredients.json")
 
 //////////////////////////Jeu///////////////////////////////////
 
-fetch("/json/recettes.json")
+fetch("http://localhost:3000/recettes")
   .then(response => response.json())
   .then(data => {
     const jsonRecettes = data;
 
-    var nomRecette = jsonRecettes[2].data.filter(item => item.id_recette === numRecette)[0].nom;
+    var nomRecette = jsonRecettes.data.filter(item => item.id_recette === numRecette)[0].nom;
 
     let recetteChar = nomRecette.split('');
     let recetteCharSize = recetteChar.length;
