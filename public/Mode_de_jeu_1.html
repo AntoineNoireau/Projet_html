@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 
   <title>Liste déroulante et boutons radios</title>
 </head>
@@ -38,95 +38,9 @@
     <p>Test</p>
   </div>
 
-  <script>
-    //On choppe les recettes ici
-    recette1 = [];
-    recette2 = [];
-    fetch("recettes-ingredients.json")
-      .then(response => response.json())
-      .then(data => {
-
-        data[2].data.forEach(elem => {
-          // Accéder à chaque propriété (temp, vent, etc.)
-          if (elem.id_recette == 1) {
-            recette1.push(elem);
-          } else {
-            recette2.push(elem);
-          }
-        });
+  <script src="js/script_1er_jeu.js">  </script>
 
 
-
-
-
-      });
-    //On choppe les ingrédients ici
-    /*
-    ingredient = []
-    fetch("ingredients.json")
-      .then(response => response.json())
-      .then(data => {
-
-
-        data[2].data.forEach(elem => {
-          ingredient.push(elem);
-        });
-
-
-
-
-
-
-      });
-      */
-
-
-
-    // on chope les ingrédients transmit par le form et quand y'en a 5
-    const ingredientForm = document.getElementById("ingredientForm");
-    const selectedIngredientsArray = []
-    ingredientForm.addEventListener("submit", function (event) {
-      event.preventDefault(); // Pour empêcher la soumission du formulaire
-
-      const selectedIngredient = document.querySelector('input[name="ingredient"]:checked');
-      if (selectedIngredient) {
-
-        selectedIngredientsArray.push(selectedIngredient.value);
-        console.log(selectedIngredientsArray);
-
-
-      } else {
-        console.log("Aucun ingrédient sélectionné.");
-      }
-
-      if (selectedIngredientsArray.length === 5) {
-        console.log("Vérification");
-        const verifArray = [0, 0, 0, 0, 0];
-        for (let i = 0; i < selectedIngredientsArray.length; i++) {
-          console.log("Selected = " + selectedIngredientsArray[i] + "et recette[1] = " + recette1[i].id_ingredient);
-          if (selectedIngredientsArray[i] == recette1[i].id_ingredient) {
-            verifArray[i]++;
-          } else {
-            for (let j = 0; j < selectedIngredientsArray.length; j++) {
-              if (selectedIngredientsArray[i] == recette1[j].id_ingredient && i != j) {
-                verifArray[i] = 2;
-              }
-            }
-          }
-        }
-
-
-        console.log(verifArray);
-
-
-        const resultatsDiv = document.getElementById("resultats");
-        resultatsDiv.innerHtml = "";
-        const image = document.createElement("img");
-        image.src = "png/image.png"
-        resultatsDiv.appendChild(image);
-      }
-    });
-  </script>
 
 </body>
 

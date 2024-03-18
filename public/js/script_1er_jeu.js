@@ -1,54 +1,110 @@
-///////////////////////////////////////// Connexion BDD /////////////////////////////////////////
 
-const mysql = require('mysql');
+//On choppe les recettes ici
+recette1 = [];
+recette2 = [];
+fetch("json/recettes-ingredients.json")
+    .then(response => response.json())
+    .then(data => {
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',     
-    password: 'password',  
-    database: 'ma_base_de_donnees' 
-});
+        data[2].data.forEach(elem => {
+            // Accéder à chaque propriété (temp, vent, etc.)
+            if (elem.id_recette == 1) {
+                recette1.push(elem);
+            } else {
+                recette2.push(elem);
+            }
+        });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Erreur de connexion à la base de données:', err);
-        return;
-    }
-    console.log('Connecté à la base de données MySQL');
-});
 
-///////////////////////////////////////// Requetes /////////////////////////////////////////
 
-connection.query('SELECT COUNT(*) AS total_recettes FROM recettes', (err, rows) => {
-    if (err) {
-        console.error('Erreur lors de l\'exécution de la requête:', err);
-        return;
-    }
 
-    const totalRecettes = rows[0].total_recettes;
-    const idAleatoire = Math.floor(Math.random() * totalRecettes) + 1;
 
-    connection.query('SELECT nom_recette FROM recettes WHERE id_recette = ?', [idAleatoire], (err, rows) => {
-        if (err) {
-            console.error('Erreur lors de l\'exécution de la requête:', err);
-            return;
-        }
-
-        if (rows.length > 0) {
-            const nomRecette = rows[0].nom_recette;
-            document.getElementById('recette').innerText = nomRecette;
-        } else {
-            console.log('Aucune recette trouvée avec cet identifiant.');
-        }
     });
-});
+//On choppe les ingrédients ici
+/*
+ingredient = []
+fetch("json/ingredients.json")
+  .then(response => response.json())
+  .then(data => {
 
-//////////////////////////////////////Déconnexion BDD//////////////////////////////////////
 
-process.on('SIGINT', () => {
-    connection.end();
-    console.log('Connexion à la base de données fermée');
-});
+    data[2].data.forEach(elem => {
+      ingredient.push(elem);
+    });
 
-module.exports = connection;
 
+
+
+
+
+  });
+  */
+
+
+
+// on chope les ingrédients transmit par le form et quand y'en a 5
+const ingredientForm = document.getElementById("ingredientForm");
+let selectedIngredientsArray = []
+let Jeucontinu = true;
+
+ingredientForm.addEventListener("submit", function(event) {
+    
+  
+  event.preventDefault(); // Pour empêcher la soumission du formulaire
+
+  const selectedIngredient = document.querySelector('input[name="ingredient"]:checked');
+  if (selectedIngredient) {
+
+    selectedIngredientsArray.push(selectedIngredient.value);
+    console.log(selectedIngredientsArray);
+
+  } else {
+    console.log("Aucun ingrédient sélectionné.");
+  }
+
+  if (selectedIngredientsArray.length === 5) {
+    console.log("Vérification");
+    const verifArray = [0, 0, 0, 0, 0];
+    for (let i = 0; i < selectedIngredientsArray.length; i++) {
+      console.log("Selected = " + selectedIngredientsArray[i] + "et recette[1] = " + recette1[i].id_ingredient);
+      if (selectedIngredientsArray[i] == recette1[i].id_ingredient) {
+        verifArray[i]++;
+      } else {
+        for (let j = 0; j < selectedIngredientsArray.length; j++) {
+          if (selectedIngredientsArray[i] == recette1[j].id_ingredient && i != j) {
+            verifArray[i] = 2;
+          }
+        }
+      }
+    }
+    selectedIngredientsArray = [];
+    console.log("Tableau reset");
+
+
+    const resultatsDiv = document.getElementById("resultats");
+    verifArray.forEach((resultat) => {
+        const image = document.createElement("img");
+        if (resultat === 1) {
+          image.src = "png/vert.png"; // Image pour un ingrédient bien placé
+        } else if (resultat === 2) {
+            image.src = "png/orange.png"; // Image pour un ingrédient mal placé
+        } else {
+            image.src = "png/rouge.png"; // Image pour un ingrédient absent
+        }
+        resultatsDiv.appendChild(image); 
+      });
+
+      resultatsDiv.appendChild(document.createElement("br"));
+
+
+      
+
+    }
+
+
+
+      
+    
+    
+  }
+);
