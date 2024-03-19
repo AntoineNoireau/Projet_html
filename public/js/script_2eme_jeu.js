@@ -94,8 +94,7 @@ fetch("/json/recettes.json")
     let recetteChar = nomRecette.split('');
     var count = 0;
     var lettresCorrectes = new Array(recetteChar.length).fill("");
-    var lettresIncorrectes = [];
-  
+      
     for (i = 0; i < recetteChar.length; i++) {  
         var case1 = document.getElementById(i + 1 + (nbTour - 1) * recetteChar.length);
          
