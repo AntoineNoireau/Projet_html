@@ -90,57 +90,51 @@ fetch("/json/recettes.json")
   })
   .catch(error => console.error('Erreur', error));
 
-function verifRecette(nomRecette) {
-
-  let recetteChar = nomRecette.split('');
-  var count = 0;
-  for (i = 0; i < recetteChar.length; i++) {  
-
-    var case1 = document.getElementById(i + 1+(nbTour-1)*recetteChar.length);
-
-    var orange = false;
-    var vert = false;
-
-    if(case1.value.toLowerCase() === recetteChar[i]){
-      vert = true;
+  function verifRecette(nomRecette) {
+    let recetteChar = nomRecette.split('');
+    var count = 0;
+    var lettresCorrectes = new Array(recetteChar.length).fill("");
+    var lettresIncorrectes = [];
+  
+    for (i = 0; i < recetteChar.length; i++) {  
+        var case1 = document.getElementById(i + 1 + (nbTour - 1) * recetteChar.length);
+         
+        if(case1.value.toLowerCase() === recetteChar[i]){
+          
+          case1.readOnly = true;
+          case1.style.backgroundColor = "green";
+          lettresCorrectes[i] = recetteChar[i];
+          count++;
+        }   
     }
-    else{
-      for(j = 0; j < recetteChar.length; j++)
+    for (i = 0; i < recetteChar.length; i++) {  
+
+      var case1 = document.getElementById(i + 1 + (nbTour - 1) * recetteChar.length);      
+      if(case1.style.backgroundColor != "green")
       {
-        if(j != i & case1.value.toLowerCase() === recetteChar[j])
-        {
-          orange = true;
-          break;
+        for(j = 0; j < recetteChar.length; j++) {
+          if(lettresCorrectes[j] === "")
+          {
+            if(j !== i && case1.value.toLowerCase() === recetteChar[j]) {
+              case1.readOnly = true;
+              case1.style.backgroundColor = "orange";
+              lettresCorrectes[j] = recetteChar[i];              
+              break;
+            }
+          } 
         }
-      }
+      }      
     }
-    
-    if(vert) {
-        case1.style.backgroundColor = "green";
-        count++;
-    } else if(orange) {
-        case1.style.backgroundColor = "orange";
+   
+    if(count == recetteChar.length) {
+        victoire();
     } else {
-        case1.style.backgroundColor = "white";
-    }
-    case1.readOnly = true;
-    
-  }
-
-  if(count == recetteChar.length)
-    {
-      victoire();
-    }
-    else
-    {
-      if(nbTour == 6)
-      {
-        perdu();
-      }
-      else {
-        nbTour++;
-        nouvelleLigne(nomRecette, nbTour);  
-      }          
+        if(nbTour == 6) {
+            perdu();
+        } else {
+            nbTour++;
+            nouvelleLigne(nomRecette, nbTour);  
+        }          
     }
 }
 function nouvelleLigne(nomRecette, nb)
