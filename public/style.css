@@ -1,10 +1,11 @@
-
-
-
 #resultats img {
   width: 50px; /* Largeur de l'image */
   height: 50px; /* Hauteur de l'image */
   margin: 5px; /* Marge autour de chaque image */
   border-radius: 50%; /* Bordure arrondie pour les images */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
+}
+img{
+  width: 50px; 
+  height: 50px;
 }
