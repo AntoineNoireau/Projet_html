@@ -2,11 +2,11 @@
 //On choppe les recettes ici
 recette1 = [];
 recette2 = [];
-fetch("json/recettes-ingredients.json")
+fetch("http://localhost:3000/recettes-ingredients")
   .then(response => response.json())
   .then(data => {
 
-    data[2].data.forEach(elem => {
+    data.forEach(elem => {
       // Accéder à chaque propriété (temp, vent, etc.)
       if (elem.id_recette == 1) {
         recette1.push(elem);
