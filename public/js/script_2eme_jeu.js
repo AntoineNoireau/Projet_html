@@ -7,57 +7,64 @@ var nbTour = 1;
 
 
 ////////////////////affichage recette////////////////////////
-fetch("/json/recettes-ingredients.json")
+fetch("http://localhost:3000/ingredients")
   .then(response => response.json())
   .then(data => {
-    const jsonRecettes = data;
 
+    var min = 1;
+    var max = 2;
+    numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
     nombreColonnes = jsonRecettes[2].data.filter(item => item.id_recette === numRecette).length;
 
-    const ingredientsIds = jsonRecettes[2].data
+    //console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
+
+    const ingredientsIds = data
       .filter(item => item.id_recette === numRecette)
       .map(item => item.id_ingredient);
 
-    fetch("/json/ingredients.json")
+    fetch("http://localhost:3000/ingredients")
       .then(response => response.json())
       .then(data => {
-        const ingredientsJson = data;
-
+        // 'data' est directement le tableau des ingrédients, pas besoin de '.data'
+        console.log(data);
         var tableauHtml = '<table> <tr>';
-
+    
         ingredientsIds.forEach(ingredientId => {
           const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
-
+          //console.log(ingredient);
+          //console.log('id=' + ingredientId);
           if (ingredient) {
             tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
           }
         });
         tableauHtml += '</tr><tr>';
-
+    
         ingredientsIds.forEach(ingredientId => {
           const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
-
+          //console.log(ingredient);
+          //console.log('id=' + ingredientId);
           if (ingredient) {
             tableauHtml += '<td>' + ingredient.nom + '</td>';
           }
         });
-
+    
         tableauHtml += '</tr>';
         tableauHtml += '</table>';
-
+    
         document.getElementById('tableContainer').innerHTML = tableauHtml;
       })
-      .catch(error => console.error('Erreur', error));
+      .catch(error => console.error('Erreur:', error));
+    
   })
   .catch(error => console.error('Erreur', error));
 
 //////////////////////////Jeu///////////////////////////////////
 
-fetch("/json/recettes.json")
+fetch("http://localhost:3000/recettes")
   .then(response => response.json())
   .then(data => {
-    const jsonRecettes = data;
 
+    console.log(jsonRecettes[2].data);
     var nomRecette = jsonRecettes[2].data.filter(item => item.id === numRecette)[0].nom;
 
     let recetteChar = nomRecette.split('');
