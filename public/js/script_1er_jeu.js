@@ -40,13 +40,61 @@ fetch("json/ingredients.json")
   });
   */
 
+// Récupérer les données des ingrédients depuis le fichier JSON
+fetch("json/ingredients.json")
+    .then(response => response.json())
+    .then(data => {
+        const ingredients = data[2].data;
+        
+        // Sélection de l'élément parent du formulaire
+        const ingredientFormParent = document.getElementById("ingredientForm");
+        ingredientFormParent.appendChild(document.createElement("br"));
+
+
+
+
+        // Ajout des éléments au formulaire
+        ingredients.forEach(ingredient => {
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.id = ingredient.nom; // Utilisation du nom comme ID
+            input.name = "ingredient";
+            input.value = ingredient.id; // Utilisation de l'ID comme valeur
+
+            const label = document.createElement("label");
+            label.htmlFor = ingredient.nom;
+            label.textContent = ingredient.nom;
+
+            ingredientFormParent.appendChild(input);
+            ingredientFormParent.appendChild(label);
+            ingredientFormParent.appendChild(document.createElement("br"));
+
+
+            
+        });
+
+        // Ajout du bouton de soumission
+        
+        const submitButton = document.createElement("button");
+        submitButton.id = "submitButton";
+        submitButton.textContent = "Valider";
+        ingredientFormParent.appendChild(submitButton);
+
+        
+        
+    })
+    .catch(error => console.error("Erreur lors de la récupération des données :", error));
+
+
+
+
+
 
 
 // on chope les ingrédients transmit par le form et quand y'en a 5
 const ingredientForm = document.getElementById("ingredientForm");
 let selectedIngredientsArray = []
 let Jeucontinu = true;
-
 ingredientForm.addEventListener("submit", function(event) {
     
   
