@@ -72,27 +72,27 @@ fetch("http://localhost:3000/recettes")
 
     document.getElementById('tableJeu1').innerHTML = recetteTableauHtml;
 
-    var inputs = document.querySelectorAll("#tableJeu1 input[type='text']");
-    var lastRowFirstInput = inputs[inputs.length - recetteCharSize];
+    var lastRowInputs = document.querySelectorAll("#tableJeu1 input[type='text']");
+    var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
     lastRowFirstInput.focus();
 
-    inputs.forEach(function(input, index) {
+    lastRowInputs.forEach(function(input, index) {
       input.addEventListener('input', function() {
-          if (this.value.length === 0 && index > 0) {
-              inputs[index - 1].focus(); 
-          } else if (this.value.length === this.maxLength) {
-              if (index < inputs.length - 1) {
-                  inputs[index + 1].focus(); 
+          if (this.value.length === this.maxLength) {
+              if (index < lastRowInputs.length - 1) {
+                  lastRowInputs[index + 1].focus(); 
               }
+          } else if (this.value.length > 0 && index < lastRowInputs.length - 1) {
+              lastRowInputs[index + 1].focus(); 
           }
       });
-  
+
       input.addEventListener('keydown', function(event) {
           if (event.key === "Backspace" && this.value.length === 0 && index > 0) {
-              inputs[index - 1].focus(); 
+              lastRowInputs[index - 1].focus(); 
           }
       });
-  });
+    });
   })
   .catch(error => console.error('Erreur', error));
 
@@ -160,21 +160,25 @@ function nouvelleLigne(nomRecette, nb)
   var lastRowInputs = document.querySelectorAll("#tableJeu" + nb + " input[type='text']");
   var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
   lastRowFirstInput.focus();
-  
+
+  var lastRowInputs = document.querySelectorAll("#tableJeu" + nb + " input[type='text']");
+  var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
+  lastRowFirstInput.focus();
+
   lastRowInputs.forEach(function(input, index) {
     input.addEventListener('input', function() {
-        if (this.value.length === 0 && index > 0) {
-            lastRowInputs[index - 1].focus(); 
-        } else if (this.value.length === this.maxLength) {
+        if (this.value.length === this.maxLength) {
             if (index < lastRowInputs.length - 1) {
                 lastRowInputs[index + 1].focus(); 
             }
+        } else if (this.value.length > 0 && index < lastRowInputs.length - 1) {
+            lastRowInputs[index + 1].focus(); 
         }
     });
 
     input.addEventListener('keydown', function(event) {
         if (event.key === "Backspace" && this.value.length === 0 && index > 0) {
-            lastRowInputs[index - 1].focus();
+            lastRowInputs[index - 1].focus(); 
         }
     });
   });
