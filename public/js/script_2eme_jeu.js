@@ -14,7 +14,7 @@ fetch("http://localhost:3000/ingredients")
     var min = 1;
     var max = 2;
     numRecette = Math.floor(Math.random() * (max - min + 1)) + min;
-    nombreColonnes = jsonRecettes[2].data.filter(item => item.id_recette === numRecette).length;
+    nombreColonnes = data.filter(item => item.id_recette === numRecette).length;
 
     //console.log('Nombre de colonnes égal à', numRecette, ':', nombreColonnes);
 
@@ -30,7 +30,7 @@ fetch("http://localhost:3000/ingredients")
         var tableauHtml = '<table> <tr>';
     
         ingredientsIds.forEach(ingredientId => {
-          const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
+          const ingredient = data.find(ingredient => ingredient.id === ingredientId);
           //console.log(ingredient);
           //console.log('id=' + ingredientId);
           if (ingredient) {
@@ -40,7 +40,7 @@ fetch("http://localhost:3000/ingredients")
         tableauHtml += '</tr><tr>';
     
         ingredientsIds.forEach(ingredientId => {
-          const ingredient = ingredientsJson[2].data.find(ingredient => ingredient.id === ingredientId);
+          const ingredient = data.find(ingredient => ingredient.id === ingredientId);
           //console.log(ingredient);
           //console.log('id=' + ingredientId);
           if (ingredient) {
@@ -64,8 +64,8 @@ fetch("http://localhost:3000/recettes")
   .then(response => response.json())
   .then(data => {
 
-    console.log(jsonRecettes[2].data);
-    var nomRecette = jsonRecettes[2].data.filter(item => item.id === numRecette)[0].nom;
+    console.log(data);
+    var nomRecette = data.filter(item => item.id === numRecette)[0].nom;
 
     let recetteChar = nomRecette.split('');
     let recetteCharSize = recetteChar.length;
