@@ -153,14 +153,21 @@ function nouvelleLigne(nomRecette, nb)
   var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
   lastRowFirstInput.focus();
   
-  var inputs = document.querySelectorAll("#tableJeu" + nb + " input[type='text']");
-  inputs.forEach(function(input, index) {
+  lastRowInputs.forEach(function(input, index) {
     input.addEventListener('input', function() {
-      if (this.value.length === this.maxLength) {
-        if (index < inputs.length - 1) {
-          inputs[index + 1].focus();
+        if (this.value.length === 0 && index > 0) {
+            lastRowInputs[index - 1].focus(); 
+        } else if (this.value.length === this.maxLength) {
+            if (index < lastRowInputs.length - 1) {
+                lastRowInputs[index + 1].focus(); 
+            }
         }
-      }
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === "Backspace" && this.value.length === 0 && index > 0) {
+            lastRowInputs[index - 1].focus();
+        }
     });
   });
 }
