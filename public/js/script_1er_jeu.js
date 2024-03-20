@@ -127,7 +127,7 @@ fetch("json/ingredients.json")
         icone.style.top = iconeTop + "px";
         icone.style.left = iconeLeft + "px";
         
-        icone.style.zIndex = "1"; 
+        icone.style.zIndex = "0"; 
         resultatsDiv.appendChild(icone);
     
     
