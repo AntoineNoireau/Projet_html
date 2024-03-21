@@ -11,6 +11,7 @@ fetch("http://localhost:3000/jeu_2")
     .then(response => response.json())
     .then(data => {
 
+        numRecette = data.recette[0].id
         nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
 
         const ingredientsIds = data.listerep
@@ -40,8 +41,6 @@ fetch("http://localhost:3000/jeu_2")
         tableauHtml += '</table>';
 
         document.getElementById('tableContainer').innerHTML = tableauHtml;
-
-        ///recettes
 
         const jsonRecettes = data.recette;
 
@@ -85,6 +84,53 @@ fetch("http://localhost:3000/jeu_2")
 
     })
     .catch(error => console.error('Erreur', error));
+
+//////////////////////////Jeu///////////////////////////////////
+
+// fetch("http://localhost:3000/recettes")
+//     .then(response => response.json())
+//     .then(data => {
+//         const jsonRecettes = data;
+
+//         var nomRecette = data.filter(item => item.id === numRecette)[0].nom;
+
+//         let recetteChar = nomRecette.split('');
+//         let recetteCharSize = recetteChar.length;
+//         var recetteTableauHtml = '<table><tr>';
+
+//         for (i = 0; i < recetteCharSize; i++) {
+//             recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
+//         }
+//         recetteTableauHtml += '<td><button onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
+//         recetteTableauHtml += '</tr>';
+
+//         recetteTableauHtml += '</table>';
+
+//         document.getElementById('tableJeu1').innerHTML = recetteTableauHtml;
+
+//         var lastRowInputs = document.querySelectorAll("#tableJeu1 input[type='text']");
+//         var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
+//         lastRowFirstInput.focus();
+
+//         lastRowInputs.forEach(function (input, index) {
+//             input.addEventListener('input', function () {
+//                 if (this.value.length === this.maxLength) {
+//                     if (index < lastRowInputs.length - 1) {
+//                         lastRowInputs[index + 1].focus();
+//                     }
+//                 } else if (this.value.length > 0 && index < lastRowInputs.length - 1) {
+//                     lastRowInputs[index + 1].focus();
+//                 }
+//             });
+
+//             input.addEventListener('keydown', function (event) {
+//                 if (event.key === "Backspace" && this.value.length === 0 && index > 0) {
+//                     lastRowInputs[index - 1].focus();
+//                 }
+//             });
+//         });
+//     })
+//     .catch(error => console.error('Erreur', error));
 
 function verifRecette(nomRecette) {
     let recetteChar = nomRecette.split('');
