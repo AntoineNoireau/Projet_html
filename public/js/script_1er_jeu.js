@@ -21,21 +21,20 @@ fetch("json/recettes-ingredients.json")
     console.log(randomNumber)
     display = [];
     recette = recettesIngredients.get(randomNumber);
-    
+
     display = recette.slice();
     const nonChoisies = Array.from(recettesIngredients.keys()).filter(id => id !== randomNumber)[0];
     let randomIngredientIndex = 0;
     console.log("Recette = " + recette);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length);
-      while(display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex]))
-      {
+      while (display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex])) {
         randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length)
       }
       display.push(recettesIngredients.get(nonChoisies)[randomIngredientIndex])
 
     }
-    
+
     console.log(display);
     console.log("Recette = " + recette);
     for (let i = display.length - 1; i > 0; i--) {
@@ -46,7 +45,7 @@ fetch("json/recettes-ingredients.json")
 
 
   });
-  
+
 //On choppe les ingrédients ici
 /*
 ingredient = []
@@ -78,9 +77,9 @@ fetch("json/ingredients.json")
     console.log(ingredients)
     console.log(display)
 
-    let name =ingredients.find(item => item.id === display[0]).nom;
+    let name = ingredients.find(item => item.id === display[0]).nom;
     console.log(name)
-    display.forEach(elem =>{
+    display.forEach(elem => {
       let nameelem = ingredients.find(item => item.id === elem).nom
       const input = document.createElement("input");
       input.type = "radio";
@@ -98,31 +97,31 @@ fetch("json/ingredients.json")
 
 
 
-      
+
 
     })
 
-  /*
-    // Ajout des éléments au formulaire
-    ingredients.forEach(ingredient => {
-      const input = document.createElement("input");
-      input.type = "radio";
-      input.id = ingredient.nom; // Utilisation du nom comme ID
-      input.name = "ingredient";
-      input.value = ingredient.id; // Utilisation de l'ID comme valeur
-
-      const label = document.createElement("label");
-      label.htmlFor = ingredient.nom;
-      label.textContent = ingredient.nom;
-
-      ingredientFormParent.appendChild(input);
-      ingredientFormParent.appendChild(label);
-      ingredientFormParent.appendChild(document.createElement("br"));
-
-
-
-    });
-    */
+    /*
+      // Ajout des éléments au formulaire
+      ingredients.forEach(ingredient => {
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.id = ingredient.nom; // Utilisation du nom comme ID
+        input.name = "ingredient";
+        input.value = ingredient.id; // Utilisation de l'ID comme valeur
+  
+        const label = document.createElement("label");
+        label.htmlFor = ingredient.nom;
+        label.textContent = ingredient.nom;
+  
+        ingredientFormParent.appendChild(input);
+        ingredientFormParent.appendChild(label);
+        ingredientFormParent.appendChild(document.createElement("br"));
+  
+  
+  
+      });
+      */
 
     // Ajout du bouton de soumission
 
@@ -155,7 +154,7 @@ ingredientForm.addEventListener("submit", function (event) {
   if (selectedIngredient) {
 
     selectedIngredientsArray.push(selectedIngredient.value);
-    console.log(selectedIngredientsArray);
+    console.log(selectedIngredient.id);
     const resultatsDiv = document.getElementById("resultats");
 
     const image = document.createElement("img");
@@ -163,7 +162,7 @@ ingredientForm.addEventListener("submit", function (event) {
     resultatsDiv.appendChild(image);
 
     const icone = document.createElement("img");
-    icone.src = "png/oeuf.png";
+    icone.src = "png/" + selectedIngredient.id + ".png";
     icone.style.position = "absolute";
 
     // Positionner l'icône au centre de l'image gris
@@ -186,10 +185,11 @@ ingredientForm.addEventListener("submit", function (event) {
     console.log("Aucun ingrédient sélectionné.");
   }
 
-  if (selectedIngredientsArray.length === 5) {
+  if (selectedIngredientsArray.length === recette.length) {
 
 
-    const verifArray = [0, 0, 0, 0, 0];
+    const verifArray = new Array(recette.length).fill(0);
+
     for (let i = 0; i < selectedIngredientsArray.length; i++) {
       console.log("Ingédient select: " + selectedIngredientsArray[i]);
 
@@ -215,7 +215,7 @@ ingredientForm.addEventListener("submit", function (event) {
 
       return new Promise(resolve => {
         setTimeout(() => {
-          if (index < 5) //car une div aura 10 element
+          if (index < recette.length) //car une div aura 10 element
           {
 
             if (nbproposion == 0) {
@@ -224,12 +224,12 @@ ingredientForm.addEventListener("submit", function (event) {
             }
             else {
 
-              image = resultatsDiv.children[resultatsDiv.childElementCount - 11 + index * 2];
+              image = resultatsDiv.children[resultatsDiv.childElementCount - (recette.length*2 + 1) + index * 2];
               //indice a modifié en fonction du nombre d'éléments dans la div
             }
             // Sélectionne l'image existante
             setTimeout(() => {
-              console.log("verif[index] = " + verifArray[index ])
+              console.log("verif[index] = " + verifArray[index])
               if (verifArray[index] === 1) {
                 image.src = "png/vert.png"; // Image pour un ingrédient bien placé
               } else if (verifArray[index] === 2) {
@@ -252,10 +252,17 @@ ingredientForm.addEventListener("submit", function (event) {
       console.log(resultatsDiv)
       console.log(resultatsDiv.children[0])
       nbproposion++;
+      
+    if (verifArray.every(element => element === 1)) {
+      texte = document.createElement("p")
+      texte.textContent = "Bien joué";
+      resultatsDiv.appendChild(texte);
+      
+
+    }
+
     });
     resultatsDiv.appendChild(document.createElement("br"));
-
-
 
 
 
