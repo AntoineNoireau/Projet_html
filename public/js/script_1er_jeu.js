@@ -2,7 +2,7 @@
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
-var display = [];
+display = [];
 fetch("json/recettes-ingredients.json")
   .then(response => response.json())
   .then(data => {
@@ -27,7 +27,7 @@ fetch("json/recettes-ingredients.json")
     const nonChoisies = Array.from(recettesIngredients.keys()).filter(id => id !== randomNumber)[0];
     let randomIngredientIndex = 0;
     console.log("Recette = " + recette);
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length);
       while (display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex])) {
         randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length)
@@ -78,8 +78,7 @@ fetch("json/ingredients.json")
     console.log(ingredients)
     console.log(display)
 
-    let name = ingredients.find(item => item.id === display[0]).nom;
-    console.log(name)
+    
     display.forEach(elem => {
       let nameelem = ingredients.find(item => item.id === elem).nom
       const input = document.createElement("input");
@@ -187,6 +186,8 @@ ingredientForm.addEventListener("submit", function (event) {
   }
 
   if (selectedIngredientsArray.length === recette.length) {
+    const submitButton = document.getElementById("submitButton");
+    submitButton.disabled = true;
 
 
     const verifArray = new Array(recette.length).fill(0);
@@ -254,11 +255,15 @@ ingredientForm.addEventListener("submit", function (event) {
       console.log(resultatsDiv.children[0])
       nbproposion++;
       
+      
     if (verifArray.every(element => element === 1)) {
       texte = document.createElement("p")
       texte.textContent = "Bien joué";
       resultatsDiv.appendChild(texte);
       
+
+    }else{
+      submitButton.disabled = false;
 
     }
 
