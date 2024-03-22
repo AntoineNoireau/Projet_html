@@ -43,7 +43,6 @@ fetch("json/ingredients.json")
 
 
 // Récupérer les données des ingrédients depuis le fichier JSON
-    const ingredients = data.ingredients;
 
 
     // Sélection du formulaire
