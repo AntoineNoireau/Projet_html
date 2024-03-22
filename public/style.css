@@ -1,3 +1,4 @@
+
 img {
   width: 55px;
   height: 55px;
@@ -65,4 +66,12 @@ body{
   background-image: url('bg_recipedle.jpg');
   background-size: cover; /* Pour couvrir l'ensemble de la fenêtre */
   background-repeat: no-repeat; /* Pour éviter la répétition de l'image */
+}
+
+#resultats img {
+  width: 50px; /* Largeur de l'image */
+  height: 50px; /* Hauteur de l'image */
+  margin: 5px; /* Marge autour de chaque image */
+  border-radius: 50%; /* Bordure arrondie pour les images */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
