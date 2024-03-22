@@ -103,6 +103,8 @@ ingredientForm.addEventListener("submit", function (event) {
 
   const selectedIngredient = document.querySelector('input[name="ingredient"]:checked');
   if (selectedIngredient) {
+    const radioButtons = document.querySelector('input[type="radio"][name="ingredient"]:checked');
+    radioButtons.disabled =true
 
     selectedIngredientsArray.push(selectedIngredient.value);
     console.log(selectedIngredient.id);
@@ -205,6 +207,11 @@ ingredientForm.addEventListener("submit", function (event) {
       console.log(resultatsDiv)
       console.log(resultatsDiv.children[0])
       nbproposion++;
+       const radioButtonsChecked = document.querySelectorAll('input[type="radio"][name="ingredient"]:disabled');
+    
+    radioButtonsChecked.forEach(button => {
+      button.disabled = false;
+  });
       
       
     if (verifArray.every(element => element === 1)) {
