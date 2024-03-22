@@ -94,20 +94,12 @@ app.get('/jeu_1', (req, res) => {
               res.status(500).send('Erreur interne du serveur');
               return;
             }
-            connection.query('SELECT * FROM recettesingredients WHERE id_ingredient NOT IN (SELECT id_ingredient FROM recettesingredients WHERE id_recette = ?) ORDER BY RAND() LIMIT 5', [randomRecetteId], (error, randomIngredients) => {
-              if (error) {
-                console.error('Erreur lors de la requête des ingrédients aléatoires :', error);
-                res.status(500).send('Erreur interne du serveur');
-                return;
-              }
-
             // Envoyer la recette aléatoire et les ingrédients (y compris les aléatoires)
             res.json({
               recette: randomRecette,
               listerep: ListRep.concat(randomIngredients),
-              ingredients: ingredients.concat(randomIngredients)
+              ingredients: ingredients
             });
-          });
           });
         });
       });

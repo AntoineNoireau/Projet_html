@@ -3,13 +3,15 @@
 recette = [];
 ingredientdisplay = [];
 display = [];
-fetch("json/recettes-ingredients.json")
+fetch("http://localhost:3000/jeu_1")
   .then(response => response.json())
   .then(data => {
 
     const recettesIngredients = new Map();
 
-    data[2].data.forEach(elem => {
+    console.log(data);
+
+    data.listerep.forEach(elem => {
       const recetteId = elem.id_recette;
       const ingredientId = elem.id_ingredient;
       if (!recettesIngredients.has(recetteId)) {
@@ -19,14 +21,12 @@ fetch("json/recettes-ingredients.json")
 
     });
     const randomNumber = Math.floor(Math.random() * 2) + 1;
-    console.log(randomNumber)
     
     recette = recettesIngredients.get(randomNumber);
 
     display = recette.slice();
     const nonChoisies = Array.from(recettesIngredients.keys()).filter(id => id !== randomNumber)[0];
     let randomIngredientIndex = 0;
-    console.log("Recette = " + recette);
     for (let i = 0; i < 3; i++) {
       randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length);
       while (display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex])) {
@@ -35,17 +35,10 @@ fetch("json/recettes-ingredients.json")
       display.push(recettesIngredients.get(nonChoisies)[randomIngredientIndex])
 
     }
-
-    console.log(display);
-    console.log("Recette = " + recette);
     for (let i = display.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [display[i], display[j]] = [display[j], display[i]]; // Échange des éléments
     }
-
-
-
-  });
 
 //On choppe les ingrédients ici
 /*
@@ -67,19 +60,20 @@ fetch("json/ingredients.json")
   });
   */
 
+
 // Récupérer les données des ingrédients depuis le fichier JSON
-fetch("json/ingredients.json")
-  .then(response => response.json())
-  .then(data => {
-    const ingredients = data[2].data;
+    const ingredients = data.ingredients;
+
 
     // Sélection de l'élément parent du formulaire
     const ingredientFormParent = document.getElementById("ingredientForm");
-    console.log(ingredients)
-    console.log(display)
 
-    
+    console.log("display");
+
     display.forEach(elem => {
+      console.log(elem)
+
+      console.log(ingredients.find(item => item.id === elem))
       let nameelem = ingredients.find(item => item.id === elem).nom
       const input = document.createElement("input");
       input.type = "radio";
@@ -136,7 +130,15 @@ fetch("json/ingredients.json")
   .catch(error => console.error("Erreur lors de la récupération des données :", error));
 
 
+  fetch("http://localhost:3000/jeu_1")
+  .then(response => response.json())
+  .then(data => {
 
+    console.log(data.listerep);
+
+    console.log(data.ingredients);
+
+  });
 
 
 
