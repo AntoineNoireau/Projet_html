@@ -7,38 +7,19 @@ fetch("http://localhost:3000/jeu_1")
   .then(response => response.json())
   .then(data => {
 
-    const recettesIngredients = new Map();
 
     console.log(data);
 
-    data.listerep.forEach(elem => {
-      const recetteId = elem.id_recette;
-      const ingredientId = elem.id_ingredient;
-      if (!recettesIngredients.has(recetteId)) {
-        recettesIngredients.set(recetteId, []);
-      }
-      recettesIngredients.get(recetteId).push(ingredientId);
+    recette =data.listerep.map(item => item.id_ingredient);
+    console.log("recette = " +recette)
 
-    });
-    const randomNumber = Math.floor(Math.random() * 2) + 1;
     
-    recette = recettesIngredients.get(randomNumber);
-
-    display = recette.slice();
-    const nonChoisies = Array.from(recettesIngredients.keys()).filter(id => id !== randomNumber)[0];
-    let randomIngredientIndex = 0;
-    for (let i = 0; i < 3; i++) {
-      randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length);
-      while (display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex])) {
-        randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length)
-      }
-      display.push(recettesIngredients.get(nonChoisies)[randomIngredientIndex])
-
-    }
+    display = data.ingredients;
     for (let i = display.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [display[i], display[j]] = [display[j], display[i]]; // Échange des éléments
     }
+
 
 //On choppe les ingrédients ici
 /*
@@ -65,64 +46,33 @@ fetch("json/ingredients.json")
     const ingredients = data.ingredients;
 
 
-    // Sélection de l'élément parent du formulaire
-    const ingredientFormParent = document.getElementById("ingredientForm");
+    // Sélection du formulaire
+    const ingredientForm = document.getElementById("ingredientForm");
 
-    console.log("display");
+  
 
     display.forEach(elem => {
-      console.log(elem)
-
-      console.log(ingredients.find(item => item.id === elem))
-      let nameelem = ingredients.find(item => item.id === elem).nom
+      let nameelem = elem.nom
       const input = document.createElement("input");
       input.type = "radio";
       input.id = nameelem;
       input.name = "ingredient";
-      input.value = elem; // Utilisation de l'ID comme valeur
+      input.value = elem.id; // Utilisation de l'ID comme valeur
 
       const label = document.createElement("label");
       label.htmlFor = nameelem;
       label.textContent = nameelem;
-      ingredientFormParent.appendChild(input);
-      ingredientFormParent.appendChild(label);
-      ingredientFormParent.appendChild(document.createElement("br"));
-
-
-
-
-
+      ingredientForm.appendChild(input);
+      ingredientForm.appendChild(label);
+      ingredientForm.appendChild(document.createElement("br"));
 
     })
-
-    /*
-      // Ajout des éléments au formulaire
-      ingredients.forEach(ingredient => {
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.id = ingredient.nom; // Utilisation du nom comme ID
-        input.name = "ingredient";
-        input.value = ingredient.id; // Utilisation de l'ID comme valeur
-  
-        const label = document.createElement("label");
-        label.htmlFor = ingredient.nom;
-        label.textContent = ingredient.nom;
-  
-        ingredientFormParent.appendChild(input);
-        ingredientFormParent.appendChild(label);
-        ingredientFormParent.appendChild(document.createElement("br"));
-  
-  
-  
-      });
-      */
-
     // Ajout du bouton de soumission
 
     const submitButton = document.createElement("button");
     submitButton.id = "submitButton";
     submitButton.textContent = "Valider";
-    ingredientFormParent.appendChild(submitButton);
+    ingredientForm.appendChild(submitButton);
 
 
 
