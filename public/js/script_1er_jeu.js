@@ -2,6 +2,7 @@
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
+var display = [];
 fetch("json/recettes-ingredients.json")
   .then(response => response.json())
   .then(data => {
@@ -19,7 +20,7 @@ fetch("json/recettes-ingredients.json")
     });
     const randomNumber = Math.floor(Math.random() * 2) + 1;
     console.log(randomNumber)
-    display = [];
+    
     recette = recettesIngredients.get(randomNumber);
 
     display = recette.slice();
