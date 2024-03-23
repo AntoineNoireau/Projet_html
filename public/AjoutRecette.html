@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout de Recette</title>
+</head>
+<body>
+    <h2>Ajout de Recette</h2>
+    <form id="recette">
+        <div id="ingredientsForm">
+            <label for="nb_ingredient">Nombre d'ingrédients :</label>
+            <input type="number" id="nb_ingredient" name="nb_ingredient" min="1" max="10" required>
+        </div>
+
+        <button type="button" id="ajouter">Ajouter</button>
+    </form>
+
+    <datalist id="listeIngredients"></datalist>
+
+    <script src="./js/script_AjoutRecette.js"></script>
+</body>
+</html>

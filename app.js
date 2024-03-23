@@ -5,6 +5,7 @@ const connection = require('./connection');
 
 // Configurez Express pour servir les fichiers statiques du dossier 'public'
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 app.get('/ingredients', (req, res) => {
   const sqlQuery = 'SELECT * FROM ingredients'; // Adaptez cette ligne à votre requête SQL
@@ -20,6 +21,30 @@ app.get('/ingredients', (req, res) => {
     res.json(results);
   });
 });
+
+app.post('/ajout_ingredient', (req, res) => {
+  const id = req.body.id; // Récupérer l'ID depuis le corps de la requête POST
+  const nom = req.body.nom; // Récupérer le nom depuis le corps de la requête POST
+  const image = req.body.img; // Récupérer l'URL depuis le corps de la requête POST, et changer à 'img' si nécessaire
+  console.log(id);
+  console.log(nom);
+  console.log(image);
+  // Requête SQL d'insertion
+  const sql = "INSERT INTO ingredients (id, nom, image) VALUES (?, ?, ?)";
+  
+  // Exécution de la requête avec les valeurs récupérées
+  connection.query(sql, [id, nom, image], (err, result) => {
+    if (err) {
+      console.error("Erreur lors de l'insertion :", err);
+      res.status(500).json({ error: "Erreur lors de l'insertion de l'ingrédient" });
+    } else {
+      console.log("Ingrédient inséré avec succès !");
+      res.status(201).json({ message: "Ingrédient inséré avec succès !" });
+    }    
+  });
+});
+
+
 
 app.get('/recettes-ingredients', (req, res) => {
   const sqlQuery = 'SELECT * FROM recettesingredients'; // Adaptez cette ligne à votre requête SQL
