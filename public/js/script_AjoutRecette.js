@@ -1,71 +1,3 @@
-let ingredientsEnregistres = [];
-
-function enregistrerIngredients() {
-    const nbIngredients = parseInt(document.getElementById('nb_ingredient').value);
-    for (let i = 1; i <= nbIngredients; i++) {
-        const nomIngredient = document.querySelector(`input[name="ingredient_${i}"]`).value;
-        if (nomIngredient) { // Enregistre seulement si le champ n'est pas vide
-            ingredientsEnregistres.push(nomIngredient);
-        }
-    }
-    console.log(ingredientsEnregistres); // Affiche le tableau d'ingrédients pour vérifier
-    // Appel de la fonction pour afficher les champs de recette
-    afficherChampsRecette();
-}
-
-function afficherChampsRecette() {
-    const ingredientsForm = document.getElementById('ingredientsForm');
-    ingredientsForm.innerHTML = ''; // Effacer les champs d'ingrédients
-
-    // Créer les nouveaux champs pour la recette
-    ingredientsForm.appendChild(creerChampInput('ID Recette', 'idRecette', 'number'));
-    ingredientsForm.appendChild(creerChampInput('Nom Recette', 'nomRecette', 'text'));
-    ingredientsForm.appendChild(creerChampInput('Image Recette', 'imageRecette', 'text'));
-
-    // Créer le bouton d'envoi de la recette
-    var boutonEnvoyerRecette = document.createElement('button');
-    boutonEnvoyerRecette.textContent = 'Envoyer Recette';
-    boutonEnvoyerRecette.onclick = envoyerRecetteComplete;
-    ingredientsForm.appendChild(boutonEnvoyerRecette);
-}
-
-function envoyerRecetteComplete() {
-    const idRecette = document.getElementById('idRecette').value;
-    const nomRecette = document.getElementById('nomRecette').value;
-    const imageRecette = document.getElementById('imageRecette').value;
-
-    // Construction de l'objet recette
-    const recetteData = {
-        id: idRecette,
-        nom: nomRecette,
-        img: imageRecette,
-        ingredients: ingredientsEnregistres // Ajoute le tableau d'ingrédients enregistrés
-    };
-
-    // Envoyer les données de la recette à l'API
-    fetch('URL_API_AJOUT_RECETTE', { // Remplacez par l'URL de votre API pour l'ajout de recette
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(recetteData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Réponse réseau non ok.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Succès:', data);
-        // Gérer le succès ici, par exemple, réinitialiser le formulaire ou afficher un message de succès
-    })
-    .catch((error) => {
-        console.error('Erreur:', error);
-        // Gérer l'erreur ici
-    });
-}
-
 // Fonction pour charger les ingrédients depuis la base de données et les ajouter à la datalist
 function chargerIngredients() {
     fetch('http://localhost:3000/ingredients')
@@ -110,9 +42,32 @@ function creerBouton(nom, id) {
     bouton.id = id;
     bouton.onclick = function () {
         ajouterChamps(); // Fonction pour ajouter les champs lorsque ce bouton est cliqué
-        chargerIngredients();
+        this.style.display = 'none'; // Masquer le bouton "Créer un ingrédient"
+        creerBoutonAnnuler(); // Créer le bouton "Annuler"
     };
     document.body.appendChild(bouton);
+}
+
+function creerBoutonRecette(nom, id) {
+    var bouton = document.createElement('button');
+    bouton.textContent = nom;
+    bouton.id = id;
+    bouton.onclick = function () {
+        
+    };
+    document.body.appendChild(bouton);
+}
+
+function creerBoutonAnnuler() {
+    var boutonAnnuler = document.createElement('button');
+    boutonAnnuler.textContent = 'Annuler';
+    boutonAnnuler.id = 'annulerCreation';
+    boutonAnnuler.onclick = function () {
+        supprimerChampsIngredient(); // Supprimer les champs de création d'ingrédient
+        creerBouton('creer ingredient', 'CreerIngredient');
+        this.remove(); // Supprimer le bouton "Annuler"
+    };
+    document.body.appendChild(boutonAnnuler);
 }
 
 function ajouterChamps() {
@@ -143,6 +98,7 @@ function ajouterChamps() {
     form.onsubmit = function (event) {
         event.preventDefault(); // Empêcher le formulaire de se soumettre de manière traditionnelle
         envoyerDonnees();
+        chargerIngredients();
     };
 }
 
@@ -179,7 +135,6 @@ function envoyerDonnees() {
     };
 
     // Envoyer les données à l'API
-    // Dans la fonction envoyerDonnees
     fetch('http://localhost:3000/ajout_ingredient', {
         method: 'POST',
         headers: {
@@ -187,24 +142,27 @@ function envoyerDonnees() {
         },
         body: JSON.stringify(ingredientData)
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Réponse réseau non ok.');
-            }
-            return response.json(); // ici, assurez-vous que la réponse est bien du JSON
-        })
-        .then(data => {
-            console.log('Succès:', data);
-            // Gérer le succès de l'envoi, par exemple en affichant un message
-        })
-        .catch((error) => {
-            console.error('Erreur:', error);
-            // Gérer l'erreur éventuelle
-        });
-
+    .then(response => response.json())
+    .then(data => {
+        console.log('Succès:', data);
+        // Gérer le succès de l'envoi, par exemple en affichant un message
+        // Recharger la liste des ingrédients
+        chargerIngredients();
+        // Supprimer les champs de création d'ingrédient
+        supprimerChampsIngredient();
+    })
+    .catch((error) => {
+        console.error('Erreur:', error);
+        // Gérer l'erreur éventuelle
+    });
 }
 
-
+function supprimerChampsIngredient() {
+    var formulaire = document.getElementById('formulaireIngredient');
+    if (formulaire) {
+        formulaire.remove(); // Supprimer le formulaire du DOM s'il existe
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -212,17 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('ajouter').addEventListener('click', function () {
         const nbIngredients = parseInt(document.getElementById('nb_ingredient').value);
         creerBouton('creer ingredient', 'CreerIngredient');
+        this.style.display = 'none';
         // Appeler la fonction pour ajouter les champs d'ingrédients
         ajouterChampsIngredients(nbIngredients);
-        document.getElementById('ajouter').addEventListener('click', function () {
-            if (ingredientsEnregistres.length === 0) {
-                // Première pression sur le bouton Valider
-                enregistrerIngredients();
-            } else {
-                // Deuxième pression sur le bouton Valider
-                envoyerRecetteComplete();
-            }
-        });
-        
     });
 });

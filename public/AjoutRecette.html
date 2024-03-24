@@ -7,17 +7,35 @@
 </head>
 <body>
     <h2>Ajout de Recette</h2>
-    <form id="recette">
-        <div id="ingredientsForm">
-            <label for="nb_ingredient">Nombre d'ingrédients :</label>
-            <input type="number" id="nb_ingredient" name="nb_ingredient" min="1" max="10" required>
+    <form id="ingredient">
+        <div>
+            <label id="nombre_ingredient">0 Ingrédient :</label>
         </div>
-
-        <button type="button" id="ajouter">Ajouter</button>
+        <div>
+            <button type="button" id="ajouter">Ajouter</button>
+            <button type="button" id="supprimer">Supprimer</button>
+            <button type="button" id="creer">Créer</button>
+        </div>
     </form>
 
+    <form id="recette">
+        <div>
+            <label for="ingredient_id">ID de la recette: </label>
+            <input type="text" id="recette_id" name="recette_id" required>
+        </div>
+        <div>
+            <label for="ingredient_nom">Nom de la recette: </label>
+            <input type="text" id="recette_nom" name="recette_nom" required>
+        </div>
+        <div>
+            <label for="ingredient_url">URL de l'image de la recette: </label>
+            <input type="url" id="recette_url" name="recette_url" required>
+        </div>
+        <button type="button" id="ajouter_recette">Valider</button>
+    </form>
+    
     <datalist id="listeIngredients"></datalist>
 
-    <script src="./js/script_AjoutRecette.js"></script>
+    <script src="./js/script_ajout.js"></script>
 </body>
 </html>

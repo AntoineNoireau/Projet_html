@@ -22,26 +22,27 @@ app.get('/ingredients', (req, res) => {
   });
 });
 
-app.post('/ajout_ingredient', (req, res) => {
-  const id = req.body.id; // Récupérer l'ID depuis le corps de la requête POST
-  const nom = req.body.nom; // Récupérer le nom depuis le corps de la requête POST
-  const image = req.body.img; // Récupérer l'URL depuis le corps de la requête POST, et changer à 'img' si nécessaire
-  console.log(id);
+app.post('/AjoutRecette', (req, res) => {
+  const liste_ingredient = req.body.liste_ingredient; // Récupérer la liste d'ingrédients depuis le corps de la requête
+  const nom = req.body.nom;
+  const image = req.body.image;
   console.log(nom);
   console.log(image);
-  // Requête SQL d'insertion
-  const sql = "INSERT INTO ingredients (id, nom, image) VALUES (?, ?, ?)";
-  
-  // Exécution de la requête avec les valeurs récupérées
-  connection.query(sql, [id, nom, image], (err, result) => {
+  const id = null;
+  // Requête SQL d'insertion des ingrédients
+  const sqlInsertQuery = 'INSERT INTO recettes (id,nom,url) VALUES (?,?,?)';
+
+  // Exécution de la requête d'insertion pour chaque ingrédient
+  connection.query(sqlInsertQuery, [4, nom, req.body.image], (err, result) => {
     if (err) {
-      console.error("Erreur lors de l'insertion :", err);
-      res.status(500).json({ error: "Erreur lors de l'insertion de l'ingrédient" });
-    } else {
-      console.log("Ingrédient inséré avec succès !");
-      res.status(201).json({ message: "Ingrédient inséré avec succès !" });
-    }    
+      console.error('Erreur lors de l\'insertion de la recette', nom, ':', err); // Correction de la référence à ingredient
+      return;
+    }
+    console.log('Recette', nom, 'insérée avec succès !');
   });
+
+  // Envoyer une réponse au client
+  res.json({ message: 'Ingrédients insérés avec succès !' });
 });
 
 
