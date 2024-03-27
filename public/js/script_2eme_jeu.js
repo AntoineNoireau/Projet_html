@@ -2,7 +2,12 @@ let nombreColonnes;
 
 var numRecette = "";
 var nbTour = 1;
+var difficulte = 3;
 
+let ingredientsIds;
+let ingredient;
+let indexIngredientAAjoute = [];
+let ingredientAAjoute = [];
 
 ////////////////////affichage recette////////////////////////
 fetch("http://localhost:3000/jeu_2")
@@ -12,33 +17,100 @@ fetch("http://localhost:3000/jeu_2")
         numRecette = data.recette[0].id
         nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
 
-        const ingredientsIds = data.listerep
+        ingredientsIds = data.listerep
             .filter(item => item.id_recette === numRecette)
             .map(item => item.id_ingredient);
 
         var tableauHtml = '<table> <tr>';
 
-        ingredientsIds.forEach(ingredientId => {
-            const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
-
-            if (ingredient) {
-                tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
-            }
-        });
-        tableauHtml += '</tr><tr>';
-
-        ingredientsIds.forEach(ingredientId => {
-            const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
-
-            if (ingredient) {
-                tableauHtml += '<td>' + ingredient.nom + '</td>';
-            }
-        });
+        if(difficulte === 1)
+        {
+            ingredientsIds.forEach(ingredientId => {
+                ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+    
+                if (ingredient) {
+                    tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
+                }
+            });
+            tableauHtml += '</tr><tr>';
+    
+            ingredientsIds.forEach(ingredientId => {
+                const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+    
+                if (ingredient) {
+                    tableauHtml += '<td>' + ingredient.nom + '</td>';
+                }
+            });
+        }
+        else if (difficulte === 2) {
+        
+            ingredientsIds.forEach((ingredientId, index) => {
+                const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+        
+                if (ingredient) {
+                    if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
+                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
+                    } else {
+                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
+                        console.log(ingredientAAjoute);
+                    }
+                }
+            });
+        
+            tableauHtml += '</tr><tr>';
+        
+            ingredientsIds.forEach((ingredientId, index) => {
+                const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+        
+                if (ingredient) {
+                    if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
+                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
+                    } else {
+                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
+                        indexIngredientAAjoute.push(index+1);
+                        ingredientAAjoute.push(ingredient);
+                    }
+                }
+            });
+        } 
+        else if (difficulte === 3) {
+        
+            ingredientsIds.forEach((ingredientId, index) => {
+                const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+        
+                if (ingredient) {
+                    if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
+                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
+                    } else {
+                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
+                        console.log(ingredientAAjoute);
+                    }
+                }
+            });
+        
+            tableauHtml += '</tr><tr>';
+        
+            ingredientsIds.forEach((ingredientId, index) => {
+                const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+        
+                if (ingredient) {
+                    if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
+                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
+                    } else {
+                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
+                        indexIngredientAAjoute.push(index+1);
+                        ingredientAAjoute.push(ingredient);
+                    }
+                }
+            });
+        }      
 
         tableauHtml += '</tr>';
         tableauHtml += '</table>';
 
         document.getElementById('tableContainer').innerHTML = tableauHtml;
+
+        ////////////////////première ligne jeu/////////////////////
 
         const jsonRecettes = data.recette;
 
@@ -113,6 +185,9 @@ function verifRecette(nomRecette) {
                         lettresCorrectes[j] = recetteChar[i];
                         break;
                     }
+                    else{
+                        case1.readOnly = true;
+                    }
                 }
             }
         }
@@ -127,6 +202,42 @@ function verifRecette(nomRecette) {
             nbTour++;
             nouvelleLigne(nomRecette, nbTour);
         }
+    }
+    updateImage();
+}
+
+function updateImage()
+{
+    var id = indexIngredientAAjoute[0];
+    if(indexIngredientAAjoute.length != 0)
+    {
+        let image = document.querySelector("#tableContainer img[id='"+(100+id)+"']");
+        let nom = document.querySelector("#tableContainer td[id='"+(100+id+ingredientsIds.length)+"']");
+        if (image) {
+            image.src = ingredientAAjoute[0].image;
+            nom.textContent = ingredientAAjoute[0].nom;
+        }    
+        indexIngredientAAjoute.shift();    
+        ingredientAAjoute.shift(); 
+    }
+    if(difficulte ===3)
+    {
+        var ID;
+        if((100+id+1) <= (100+ingredientsIds.length))
+        {
+            ID = 100+id+1;
+        } 
+        else{ID = 101}
+        let image = document.querySelector("#tableContainer img[id='"+(ID)+"']");
+        let nom = document.querySelector("#tableContainer td[id='"+(ID+ingredientsIds.length)+"']");
+        if (image) {
+            
+            var ingre = {nom: nom.textContent, image: image.src }
+            ingredientAAjoute.push(ingre)
+            image.src = '/png/point_interrogation_image.png';
+            nom.textContent = '???';
+        } 
+        indexIngredientAAjoute.push(ID-100);
     }
 }
 
@@ -172,11 +283,10 @@ function nouvelleLigne(nomRecette, nb) {
 function victoire() {
     alert("Vous avez gagné");
 }
+
 function perdu() {
     alert("Vous avez perdu");
-
 }
-
 
 document.addEventListener('keydown', function (event) {
     if (event.key === "Enter") {
