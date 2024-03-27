@@ -2,7 +2,7 @@ let nombreColonnes;
 
 var numRecette = "";
 var nbTour = 1;
-var difficulte = 2;
+var difficulte = 3;
 
 let ingredientsIds;
 let ingredient;
@@ -208,17 +208,36 @@ function verifRecette(nomRecette) {
 
 function updateImage()
 {
+    var id = indexIngredientAAjoute[0];
     if(indexIngredientAAjoute.length != 0)
     {
-        let image = document.querySelector("#tableContainer img[id='"+(100+indexIngredientAAjoute[0])+"']");
-        let nom = document.querySelector("#tableContainer td[id='"+(100+indexIngredientAAjoute[0]+ingredientsIds.length)+"']");
+        let image = document.querySelector("#tableContainer img[id='"+(100+id)+"']");
+        let nom = document.querySelector("#tableContainer td[id='"+(100+id+ingredientsIds.length)+"']");
         if (image) {
-            console.log(ingredientAAjoute[0])
             image.src = ingredientAAjoute[0].image;
             nom.textContent = ingredientAAjoute[0].nom;
         }    
         indexIngredientAAjoute.shift();    
         ingredientAAjoute.shift(); 
+    }
+    if(difficulte ===3)
+    {
+        var ID;
+        if((100+id+1) <= (100+ingredientsIds.length))
+        {
+            ID = 100+id+1;
+        } 
+        else{ID = 101}
+        let image = document.querySelector("#tableContainer img[id='"+(ID)+"']");
+        let nom = document.querySelector("#tableContainer td[id='"+(ID+ingredientsIds.length)+"']");
+        if (image) {
+            
+            var ingre = {nom: nom.textContent, image: image.src }
+            ingredientAAjoute.push(ingre)
+            image.src = '/png/point_interrogation_image.png';
+            nom.textContent = '???';
+        } 
+        indexIngredientAAjoute.push(ID-100);
     }
 }
 
@@ -268,7 +287,6 @@ function victoire() {
 function perdu() {
     alert("Vous avez perdu");
 }
-
 
 document.addEventListener('keydown', function (event) {
     if (event.key === "Enter") {
