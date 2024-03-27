@@ -10,7 +10,7 @@ img {
   background-color:#ff9000;
   color:darkgreen;
   text-decoration: none;
-  border: 2px solid #bb5000; /* Ajout de la bordure */
+  border: 2px solid #bb5000; 
   border-radius: 20px;
   cursor: pointer;
   font-size: 1.5vw;
@@ -63,14 +63,14 @@ footer {
 body{
   margin: 0;
   padding: 0;
-  background-size: cover; /* Pour couvrir l'ensemble de la fenêtre */
-  background-repeat: no-repeat; /* Pour éviter la répétition de l'image */
+  background-size: cover; 
+  background-repeat: no-repeat; 
 }
 
 #resultats img {
-  width: 50px; /* Largeur de l'image */
-  height: 50px; /* Hauteur de l'image */
-  margin: 5px; /* Marge autour de chaque image */
+  width: 50px; 
+  height: 50px; 
+  margin: 5px; 
   border-radius: 50%; /* Bordure arrondie pour les images */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
