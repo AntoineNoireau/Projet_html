@@ -2,9 +2,16 @@ let nombreColonnes;
 
 var numRecette = "";
 var nbTour = 1;
-var difficulte = 3;
+var difficulte = 1;
 
-let ingredientsIds;
+window.onload = function() {
+    const sliderValue = localStorage.getItem("sliderValue");
+    if (sliderValue !== null) {
+        difficulte = parseInt(sliderValue);
+    }
+  };
+
+  let ingredientsIds;
 let ingredient;
 let indexIngredientAAjoute = [];
 let ingredientAAjoute = [];
