@@ -2,7 +2,7 @@ let nombreColonnes;
 
 var numRecette = "";
 var nbTour = 1;
-var difficulte = 3;
+var difficulte = 1;
 
 let ingredientsIds;
 let ingredient;
