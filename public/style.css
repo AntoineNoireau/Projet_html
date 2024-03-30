@@ -9,3 +9,12 @@ img{
   width: 50px; 
   height: 50px;
 }
+
+.image-droite {
+  width: 500px; /* Largeur de l'image */
+  height: 250px; /* Hauteur de l'image */
+  float: right; /* Alignement à droite */
+  margin-left: 10px; /* Marge à gauche pour éviter le chevauchement du contenu adjacent */
+  margin-right: 100px;
+  margin-bottom: 10px; /* Marge en bas pour éviter le chevauchement du contenu en dessous */
+}

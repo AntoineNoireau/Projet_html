@@ -105,6 +105,7 @@ ingredientForm.addEventListener("submit", function (event) {
   if (selectedIngredient) {
     const radioButtons = document.querySelector('input[type="radio"][name="ingredient"]:checked');
     radioButtons.disabled =true
+    radioButtons.checked  = false
 
     selectedIngredientsArray.push(selectedIngredient.value);
     console.log(selectedIngredient.id);
