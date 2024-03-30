@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn_valider.addEventListener('click', function () {
         if (form_recette.checkValidity()) {
             ingredients_recette = RecupIngredient(form_ingredient, current_nb);
-            console.log(ingredients_recette);
+
         } else {
             alert('Veuillez remplir tous les champs obligatoires.');
         }
@@ -104,4 +104,38 @@ function RecupIngredient(form, NbIngredient) {
         tab.push(form.querySelector('#ingredient_' + i).value);
     }
     return tab;
+}
+
+///////////////////////////////Fonction pour transmettre les données///////////////////////////////
+
+function EnvoieDonnes(nom,image,liste_ingredients){
+    var data_recette = {
+        liste_ingredients: liste_ingredients,
+        nom: nom,
+        image: image
+    };
+
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data_recette)
+    };
+
+    var url = 'http://localhost:3000/AjoutRecette';
+
+    fetch(url, requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Réponse du serveur :', data);
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+        });
 }

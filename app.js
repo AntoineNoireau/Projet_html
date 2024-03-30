@@ -23,24 +23,41 @@ app.get('/ingredients', (req, res) => {
 });
 
 app.post('/AjoutRecette', (req, res) => {
-  const liste_ingredient = req.body.liste_ingredient; // Récupérer la liste d'ingrédients depuis le corps de la requête
+  
   const nom = req.body.nom;
   const image = req.body.image;
-  console.log(nom);
-  console.log(image);
-  const id = null;
+
   // Requête SQL d'insertion des ingrédients
-  const sqlInsertQuery = 'INSERT INTO recettes (id,nom,url) VALUES (?,?,?)';
+  const sqlInsertQuery = 'INSERT INTO recettes (nom,url) VALUES (?,?)';
 
   // Exécution de la requête d'insertion pour chaque ingrédient
-  connection.query(sqlInsertQuery, [4, nom, req.body.image], (err, result) => {
+  connection.query(sqlInsertQuery, [nom, image], (err, result) => {
     if (err) {
       console.error('Erreur lors de l\'insertion de la recette', nom, ':', err); // Correction de la référence à ingredient
       return;
     }
+    const id_recette = result.insertId;
     console.log('Recette', nom, 'insérée avec succès !');
   });
 
+  const liste_ingredients = req.body.liste_ingredients;
+
+  // Requête SQL pour récupérer les IDs des ingrédients
+  const sqlSelectQuery = 'SELECT id FROM ingredients WHERE nom IN (?)';
+  
+  // Exécution de la requête SQL
+  connection.query(sqlSelectQuery, [liste_ingredients], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des IDs des ingrédients :', err);
+      return;
+    }
+  
+    // Extraire les IDs des résultats de la requête
+    const ids_ingrédients = results.map(result => result.id);
+  
+    // Utiliser les IDs des ingrédients, par exemple, les stocker dans une variable ou les renvoyer au client
+    console.log('IDs des ingrédients :', ids_ingrédients);
+  });  
   // Envoyer une réponse au client
   res.json({ message: 'Ingrédients insérés avec succès !' });
 });
