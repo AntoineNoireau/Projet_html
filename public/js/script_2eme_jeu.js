@@ -288,7 +288,7 @@ function nouvelleLigne(nomRecette, nb) {
     });
 }
 function victoire() {
-    alert("Vous avez gagné");
+    explodeConfetti();
 }
 
 function perdu() {
@@ -300,3 +300,13 @@ document.addEventListener('keydown', function (event) {
         document.querySelector("#tableJeu1 button").click();
     }
 });
+function explodeConfetti() {
+    for(let index = 0; index <= 30; index++){
+        confetti({
+        origin:{
+            x: Math.random(),
+            y: Math.random()
+        }
+        })
+    }
+}
