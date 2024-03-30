@@ -74,3 +74,23 @@ body{
   border-radius: 50%; /* Bordure arrondie pour les images */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 10%; /* Largeur numéros slider */
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.slider-labels span {
+  text-align: center;
+  width: 16px; /* Largeur numéros slider */
+}
+
