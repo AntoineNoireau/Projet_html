@@ -2,51 +2,25 @@
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
-fetch("json/recettes-ingredients.json")
+display = [];
+fetch("http://localhost:3000/jeu_1")
   .then(response => response.json())
   .then(data => {
 
-    const recettesIngredients = new Map();
 
-    data[2].data.forEach(elem => {
-      const recetteId = elem.id_recette;
-      const ingredientId = elem.id_ingredient;
-      if (!recettesIngredients.has(recetteId)) {
-        recettesIngredients.set(recetteId, []);
-      }
-      recettesIngredients.get(recetteId).push(ingredientId);
+    console.log(data);
 
-    });
-    const randomNumber = Math.floor(Math.random() * 2) + 1;
-    console.log(randomNumber)
-    display = [];
-    recette = recettesIngredients.get(randomNumber);
+    recette =data.listerep.map(item => item.id_ingredient);
+    console.log("recette = " +recette)
+
     
-    display = recette.slice();
-    const nonChoisies = Array.from(recettesIngredients.keys()).filter(id => id !== randomNumber)[0];
-    let randomIngredientIndex = 0;
-    console.log("Recette = " + recette);
-    for (let i = 0; i < 3; i++) {
-      randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length);
-      while(display.includes(recettesIngredients.get(nonChoisies)[randomIngredientIndex]))
-      {
-        randomIngredientIndex = Math.floor(Math.random() * recettesIngredients.get(nonChoisies).length)
-      }
-      display.push(recettesIngredients.get(nonChoisies)[randomIngredientIndex])
-
-    }
-    
-    console.log(display);
-    console.log("Recette = " + recette);
+    display = data.ingredients;
     for (let i = display.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [display[i], display[j]] = [display[j], display[i]]; // Échange des éléments
     }
 
 
-
-  });
-  
 //On choppe les ingrédients ici
 /*
 ingredient = []
@@ -67,69 +41,37 @@ fetch("json/ingredients.json")
   });
   */
 
+
 // Récupérer les données des ingrédients depuis le fichier JSON
-fetch("json/ingredients.json")
-  .then(response => response.json())
-  .then(data => {
-    const ingredients = data[2].data;
 
-    // Sélection de l'élément parent du formulaire
-    const ingredientFormParent = document.getElementById("ingredientForm");
-    console.log(ingredients)
-    console.log(display)
 
-    let name =ingredients.find(item => item.id === display[0]).nom;
-    console.log(name)
-    display.forEach(elem =>{
-      let nameelem = ingredients.find(item => item.id === elem).nom
+    // Sélection du formulaire
+    const ingredientForm = document.getElementById("ingredientForm");
+
+  
+
+    display.forEach(elem => {
+      let nameelem = elem.nom
       const input = document.createElement("input");
       input.type = "radio";
       input.id = nameelem;
       input.name = "ingredient";
-      input.value = elem; // Utilisation de l'ID comme valeur
+      input.value = elem.id; // Utilisation de l'ID comme valeur
 
       const label = document.createElement("label");
       label.htmlFor = nameelem;
       label.textContent = nameelem;
-      ingredientFormParent.appendChild(input);
-      ingredientFormParent.appendChild(label);
-      ingredientFormParent.appendChild(document.createElement("br"));
-
-
-
-
-      
+      ingredientForm.appendChild(input);
+      ingredientForm.appendChild(label);
+      ingredientForm.appendChild(document.createElement("br"));
 
     })
-
-  /*
-    // Ajout des éléments au formulaire
-    ingredients.forEach(ingredient => {
-      const input = document.createElement("input");
-      input.type = "radio";
-      input.id = ingredient.nom; // Utilisation du nom comme ID
-      input.name = "ingredient";
-      input.value = ingredient.id; // Utilisation de l'ID comme valeur
-
-      const label = document.createElement("label");
-      label.htmlFor = ingredient.nom;
-      label.textContent = ingredient.nom;
-
-      ingredientFormParent.appendChild(input);
-      ingredientFormParent.appendChild(label);
-      ingredientFormParent.appendChild(document.createElement("br"));
-
-
-
-    });
-    */
-
     // Ajout du bouton de soumission
 
     const submitButton = document.createElement("button");
     submitButton.id = "submitButton";
     submitButton.textContent = "Valider";
-    ingredientFormParent.appendChild(submitButton);
+    ingredientForm.appendChild(submitButton);
 
 
 
@@ -137,7 +79,15 @@ fetch("json/ingredients.json")
   .catch(error => console.error("Erreur lors de la récupération des données :", error));
 
 
+  fetch("http://localhost:3000/jeu_1")
+  .then(response => response.json())
+  .then(data => {
 
+    console.log(data.listerep);
+
+    console.log(data.ingredients);
+
+  });
 
 
 
@@ -153,9 +103,12 @@ ingredientForm.addEventListener("submit", function (event) {
 
   const selectedIngredient = document.querySelector('input[name="ingredient"]:checked');
   if (selectedIngredient) {
+    const radioButtons = document.querySelector('input[type="radio"][name="ingredient"]:checked');
+    radioButtons.disabled =true
+    radioButtons.checked  = false
 
     selectedIngredientsArray.push(selectedIngredient.value);
-    console.log(selectedIngredientsArray);
+    console.log(selectedIngredient.id);
     const resultatsDiv = document.getElementById("resultats");
 
     const image = document.createElement("img");
@@ -163,7 +116,7 @@ ingredientForm.addEventListener("submit", function (event) {
     resultatsDiv.appendChild(image);
 
     const icone = document.createElement("img");
-    icone.src = "png/oeuf.png";
+    icone.src = "png/" + selectedIngredient.id + ".png";
     icone.style.position = "absolute";
 
     // Positionner l'icône au centre de l'image gris
@@ -186,10 +139,13 @@ ingredientForm.addEventListener("submit", function (event) {
     console.log("Aucun ingrédient sélectionné.");
   }
 
-  if (selectedIngredientsArray.length === 5) {
+  if (selectedIngredientsArray.length === recette.length) {
+    const submitButton = document.getElementById("submitButton");
+    submitButton.disabled = true;
 
 
-    const verifArray = [0, 0, 0, 0, 0];
+    const verifArray = new Array(recette.length).fill(0);
+
     for (let i = 0; i < selectedIngredientsArray.length; i++) {
       console.log("Ingédient select: " + selectedIngredientsArray[i]);
 
@@ -215,7 +171,7 @@ ingredientForm.addEventListener("submit", function (event) {
 
       return new Promise(resolve => {
         setTimeout(() => {
-          if (index < 5) //car une div aura 10 element
+          if (index < recette.length) //car une div aura 10 element
           {
 
             if (nbproposion == 0) {
@@ -224,12 +180,12 @@ ingredientForm.addEventListener("submit", function (event) {
             }
             else {
 
-              image = resultatsDiv.children[resultatsDiv.childElementCount - 11 + index * 2];
+              image = resultatsDiv.children[resultatsDiv.childElementCount - (recette.length*2 + 1) + index * 2];
               //indice a modifié en fonction du nombre d'éléments dans la div
             }
             // Sélectionne l'image existante
             setTimeout(() => {
-              console.log("verif[index] = " + verifArray[index ])
+              console.log("verif[index] = " + verifArray[index])
               if (verifArray[index] === 1) {
                 image.src = "png/vert.png"; // Image pour un ingrédient bien placé
               } else if (verifArray[index] === 2) {
@@ -252,10 +208,26 @@ ingredientForm.addEventListener("submit", function (event) {
       console.log(resultatsDiv)
       console.log(resultatsDiv.children[0])
       nbproposion++;
+       const radioButtonsChecked = document.querySelectorAll('input[type="radio"][name="ingredient"]:disabled');
+    
+    radioButtonsChecked.forEach(button => {
+      button.disabled = false;
+  });
+      
+      
+    if (verifArray.every(element => element === 1)) {
+      texte = document.createElement("p")
+      texte.textContent = "Bien joué";
+      resultatsDiv.appendChild(texte);
+      
+
+    }else{
+      submitButton.disabled = false;
+
+    }
+
     });
     resultatsDiv.appendChild(document.createElement("br"));
-
-
 
 
 
