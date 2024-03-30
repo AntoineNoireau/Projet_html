@@ -44,10 +44,16 @@ img {
 }
 
 .description{
-  text-align: center;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 50.2%;
+  transform: translate(-50%, -50%);
+  background-color:darkgray;
+  border: 2px solid #bb5000; /* Ajout de la bordure */
   font-family: 'Nanum', sans-serif;
   font-size: 2.5vw;
-  color:goldenrod;
+  color:gold;
 }
 
 footer {
@@ -63,6 +69,10 @@ footer {
 body{
   margin: 0;
   padding: 0;
+  background-image: url('/png/bg_recipedle.jpg');
+  background-size: cover; /* Pour couvrir l'ensemble de la fenêtre */
+  background-repeat: no-repeat; /* Pour éviter la répétition de l'image */
+  overflow:hidden;
   background-size: cover; 
   background-repeat: no-repeat; 
 }
@@ -102,4 +112,39 @@ body{
   margin-left: 10px; /* Marge à gauche pour éviter le chevauchement du contenu adjacent */
   margin-right: 100px;
   margin-bottom: 10px; /* Marge en bas pour éviter le chevauchement du contenu en dessous */
+}
+
+.jeu1 {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:darkgray;
+  border: 2px solid darkgreen; /* Ajout de la bordure */
+}
+
+.descjeu1 {
+  font-family: 'Nanum', sans-serif;
+  font-size: 2.5vw;
+  color:gold;
+}
+
+
+
+@keyframes confetti-fall {
+  0% {
+      transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+      transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 50%;
+  animation: confetti-fall 2s linear infinite;
 }
