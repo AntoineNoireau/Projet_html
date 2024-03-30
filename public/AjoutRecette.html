@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout de Recette</title>
+</head>
+<body>
+    <h2>Ajout de Recette</h2>
+    <form id="ingredient">
+        <div>
+            <label id="nombre_ingredient">0 Ingrédient :</label>
+        </div>
+        <div>
+            <button type="button" id="ajouter">Ajouter</button>
+            <button type="button" id="supprimer">Supprimer</button>
+            <button type="button" id="creer">Créer</button>
+        </div>
+    </form>
+
+    <form id="recette">
+        <div>
+            <label for="ingredient_id">ID de la recette: </label>
+            <input type="text" id="recette_id" name="recette_id" required>
+        </div>
+        <div>
+            <label for="ingredient_nom">Nom de la recette: </label>
+            <input type="text" id="recette_nom" name="recette_nom" required>
+        </div>
+        <div>
+            <label for="ingredient_url">URL de l'image de la recette: </label>
+            <input type="url" id="recette_url" name="recette_url" required>
+        </div>
+        <button type="button" id="ajouter_recette">Valider</button>
+    </form>
+    
+    <datalist id="listeIngredients"></datalist>
+
+    <script src="./js/script_ajout.js"></script>
+</body>
+</html>
