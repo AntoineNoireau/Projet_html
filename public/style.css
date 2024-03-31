@@ -47,7 +47,7 @@ img {
   position: absolute;
   top: 25%;
   left: 50%;
-  width: 50.2%;
+  width: 51.8%;
   transform: translate(-50%, -50%);
   background-color:darkgray;
   border: 2px solid #bb5000; /* Ajout de la bordure */
@@ -114,17 +114,29 @@ body{
   margin-bottom: 10px; /* Marge en bas pour éviter le chevauchement du contenu en dessous */
 }
 
-.jeu1 {
+.jeu {
   position: absolute;
-  top: 25%;
+  top: 18%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  width: 50%;
+  transform: translate(-50%, 0%);
   background-color:darkgray;
-  border: 2px solid darkgreen; /* Ajout de la bordure */
+  border: 2px solid #bb5000; /* Ajout de la bordure */
+  font-family: 'Nanum', sans-serif;
 }
 
-.descjeu1 {
-  font-family: 'Nanum', sans-serif;
+.jeucontenu {
+  position : relative;
+  color: darkgreen;
+  font-size: 1.5vw;
+  width:fit-content;
+  margin: auto;
+}
+.result1 {
+  left: 30%;
+}
+
+.descjeu {
   font-size: 2.5vw;
   color:gold;
 }

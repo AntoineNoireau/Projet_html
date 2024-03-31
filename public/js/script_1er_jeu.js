@@ -117,14 +117,16 @@ ingredientForm.addEventListener("submit", function (event) {
 
     const icone = document.createElement("img");
     icone.src = "png/" + selectedIngredient.id + ".png";
-    icone.style.position = "absolute";
+    icone.style.position = "relative";
 
     // Positionner l'icône au centre de l'image gris
     const grisRect = image.getBoundingClientRect();
     const iconeWidth = icone.offsetWidth;
     const iconeHeight = icone.offsetHeight;
-    const iconeTop = grisRect.top + (grisRect.height - iconeHeight) / 2;
-    const iconeLeft = grisRect.left + (grisRect.width - iconeWidth) / 2;
+    // const iconeTop = grisRect.top + (grisRect.height - iconeHeight) / 2;
+    // const iconeLeft = grisRect.left + (grisRect.width - iconeWidth) / 2;
+    const iconeTop = 0;
+    const iconeLeft = -30;
     icone.style.marginTop = "-25px";
     icone.style.marginLeft = "-25px";
 
@@ -217,7 +219,7 @@ ingredientForm.addEventListener("submit", function (event) {
       
     if (verifArray.every(element => element === 1)) {
       texte = document.createElement("p")
-      texte.textContent = "Bien joué";
+      texte.textContent = "Bravo !";
       resultatsDiv.appendChild(texte);
       
 
