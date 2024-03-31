@@ -246,3 +246,14 @@ ingredientForm.addEventListener("submit", function (event) {
 
 }
 );
+
+function explodeConfetti() {
+  for(let index = 0; index <= 30; index++){
+      confetti({
+      origin:{
+          x: Math.random(),
+          y: Math.random()
+      }
+      })
+  }
+}
