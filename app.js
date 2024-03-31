@@ -79,6 +79,24 @@ app.get('/recettes-ingredients', (req, res) => {
   });
 });
 
+app.post('/id-recette-ingredient', (req, res) => {
+
+  const liste_ingredients = req.body.ingredients;
+
+  const sqlQuery = "SELECT id_recette FROM (SELECT id_recette, COUNT(*) AS count_ingredients FROM recettesingredients WHERE id_ingredient IN (SELECT id FROM ingredients WHERE nom IN (?)) GROUP BY id_recette) AS counts WHERE count_ingredients = (SELECT COUNT(*) FROM recettesingredients WHERE id_recette = counts.id_recette)";
+
+  connection.query(sqlQuery, [liste_ingredients], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la requête :', error);
+      res.status(500).send('Erreur interne du serveur');
+      return;
+    }
+
+    // Supposons que vos résultats sont directement dans le format désiré
+    res.json(results);
+  });
+});
+
 app.get('/recettes', (req, res) => {
   const sqlQuery = 'SELECT * FROM recettes'; // Adaptez cette ligne à votre requête SQL
 

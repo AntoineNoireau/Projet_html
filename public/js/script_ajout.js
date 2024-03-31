@@ -139,3 +139,4 @@ function EnvoieDonnes(nom,image,liste_ingredients){
             console.error('Erreur :', error);
         });
 }
+
