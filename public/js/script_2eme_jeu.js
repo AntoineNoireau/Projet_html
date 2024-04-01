@@ -59,7 +59,6 @@ fetch("http://localhost:3000/jeu_2")
                         tableauHtml += '<td><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
                     } else {
                         tableauHtml += '<td><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
-                        console.log(ingredientAAjoute);
                     }
                 }
             });
@@ -292,7 +291,7 @@ function victoire() {
 }
 
 function perdu() {
-    alert("Vous avez perdu");
+    generateEmojiExplosion();
 }
 
 document.addEventListener('keydown', function (event) {
@@ -300,13 +299,4 @@ document.addEventListener('keydown', function (event) {
         document.querySelector("#tableJeu1 button").click();
     }
 });
-function explodeConfetti() {
-    for(let index = 0; index <= 30; index++){
-        confetti({
-        origin:{
-            x: Math.random(),
-            y: Math.random()
-        }
-        })
-    }
-}
+
