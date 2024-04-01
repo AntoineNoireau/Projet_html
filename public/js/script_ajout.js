@@ -43,7 +43,7 @@ function creer_liste_deroulante(form, nb) {
     var div = document.createElement('div');
     div.id = 'div_' + i
     var label = document.createElement('label');
-    console.log('label_' + i);
+    //console.log('label_' + i);
     label.textContent = 'Ingrédient n°' + (i + 1) + ': '; // Texte du label
     label.id = 'label_' + i;
     div.appendChild(label);
@@ -57,7 +57,7 @@ function creer_liste_deroulante(form, nb) {
             const noms = data.map(item => item.nom);
 
             // Maintenant, noms contient uniquement les noms des ingrédients
-            console.log(noms);
+            //console.log(noms);
             // Parcours des données et ajout d'une option pour chaque élément
             noms.forEach(nom => {
                 var option = document.createElement('option');

@@ -1,5 +1,6 @@
+var current_nb = 0;
+
 document.addEventListener('DOMContentLoaded', function () {
-    var current_nb = 0;
 
     var form_ingredient = document.getElementById('ingredient');
 
@@ -28,12 +29,101 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function valider()
 {
-    fetch("http://localhost:3000/consulter")
-    .then(response => response.json())
-    .then(data => {
+    var ingredients = [];
 
-        
+    for (var i = 0; i < current_nb; i++) {
+        var select = document.getElementById('ingredient_' + i);
+        var selectedIngredient = select.value;
+        ingredients.push(selectedIngredient);
+    }
 
-    })
-    .catch(error => console.error('Erreur', error));
+    var data_to_send = {
+        ingredients: ingredients
+    };
+    
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data_to_send)
+    };
+
+    var url = 'http://localhost:3000/id-recette-ingredient';
+
+    fetch(url, requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Réponse du serveur :', data);  
+            
+            data_to_send = {
+                id: data
+            };
+            requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data_to_send)
+            };
+            url = 'http://localhost:3000/id-recette-ingredient-suite';
+            fetch(url, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la requête : ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Réponse du serveur 2:', data);
+                //////// afficher les recettes possibles/////////
+                var tableauHtml = '';
+                for(i = 0; i < data.recette.length;i++)
+                {           
+                    tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' </p> <table> <tr>';
+
+                    numRecette = data.recette[i].id
+                    nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
+
+                    ingredientsIds = data.listerep
+                        .filter(item => item.id_recette === numRecette)
+                        .map(item => item.id_ingredient);                   
+
+                    
+                    ingredientsIds.forEach(ingredientId => {
+                        ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+            
+                        if (ingredient) {
+                            tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
+                        }
+                    });
+                    tableauHtml += '</tr><tr>';
+            
+                    ingredientsIds.forEach(ingredientId => {
+                        const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
+            
+                        if (ingredient) {
+                            tableauHtml += '<td>' + ingredient.nom + '</td>';
+                        }
+                    });     
+
+                    tableauHtml += '</tr>';
+                    tableauHtml += '</table>';                    
+                }
+                
+                document.getElementById('tableContainer').innerHTML = tableauHtml;
+
+            })
+            .catch(error => {
+                console.error('Erreur :', error);
+            });
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+        });    
 }

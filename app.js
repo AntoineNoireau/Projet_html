@@ -97,6 +97,49 @@ app.post('/id-recette-ingredient', (req, res) => {
   });
 });
 
+app.post('/id-recette-ingredient-suite', (req, res) => {
+
+    // ID de recette 
+    var RecetteId = []
+    for(i = 0 ; i < req.body.id.length ; i++)
+    {
+      RecetteId[i] = req.body.id[i].id_recette;
+    }
+    // Obtenir les informations de la recette aléatoire
+    connection.query(`SELECT * FROM recettes WHERE id IN (${RecetteId.join(',')})`, (error, Recettes) => {
+      if (error) {
+        console.error('Erreur lors de la requête des recettes :', error);
+        res.status(500).send('Erreur interne du serveur');
+        return;
+      }
+    
+      // Obtenir les ingrédients de chaque recette
+      connection.query(`SELECT * FROM recettesingredients WHERE id_recette IN (${RecetteId.join(',')})`, (error, ListesRep) => {
+        if (error) {
+          console.error('Erreur lors de la requête des ingrédients de la recette :', error);
+          res.status(500).send('Erreur interne du serveur');
+          return;
+        }
+    
+        // Obtenir tous les ingrédients des recettes
+        connection.query(`SELECT * FROM ingredients WHERE id IN (SELECT id_ingredient FROM recettesingredients WHERE id_recette IN (${RecetteId.join(',')}))`, (error, Ingredients) => {
+          if (error) {
+            console.error('Erreur lors de la requête des ingrédients :', error);
+            res.status(500).send('Erreur interne du serveur');
+            return;
+          }
+    
+          // Envoyer les données des recettes et des ingrédients
+          res.json({
+            recette: Recettes,
+            listerep: ListesRep,
+            ingredients: Ingredients
+          });
+        });
+      });
+    });
+});
+
 app.get('/recettes', (req, res) => {
   const sqlQuery = 'SELECT * FROM recettes'; // Adaptez cette ligne à votre requête SQL
 
