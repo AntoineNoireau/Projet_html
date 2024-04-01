@@ -63,7 +63,6 @@ function valider()
             if(data.length === 0) 
             {
                 var tableauHtml = '<p style="text-align: center;"> Aucune recette trouvée </p>';
-                console.log("ici");
                 document.getElementById('tableContainer').innerHTML = tableauHtml;
             }
             else
@@ -92,7 +91,6 @@ function valider()
                     var tableauHtml = '';
                     for(i = 0; i < data.recette.length;i++)
                     {           
-                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' </p> <table> <tr>';
 
                         numRecette = data.recette[i].id
                         nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
@@ -101,7 +99,8 @@ function valider()
                             .filter(item => item.id_recette === numRecette)
                             .map(item => item.id_ingredient);                   
 
-                        
+                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' : '+ data.recette[i].nom+' </p> <table> <tr>';
+
                         ingredientsIds.forEach(ingredientId => {
                             ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
                 
