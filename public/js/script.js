@@ -3,7 +3,7 @@ function redirectToGame() {
     localStorage.setItem("sliderValue", sliderValue);
     window.location.href = "Mode_de_jeu_2.html"; 
   }
-  function explodeConfetti() {
+function explodeConfetti() {
     for(let index = 0; index <= 30; index++){
         confetti({
         origin:{
@@ -12,6 +12,42 @@ function redirectToGame() {
         }
         })
     }
+    finJeu("Vous avez gagné !!");
+}
+function finJeu(texte)
+{
+    const cadre = document.createElement("div");
+    cadre.classList.add("cadre");
+
+
+    const titre = document.createElement("h1");
+    titre.textContent = texte;
+
+    const boutonsDiv = document.createElement("div");
+
+    const rejouerBtn = document.createElement("button");
+    rejouerBtn.textContent = "Restart";
+    rejouerBtn.classList.add("button");
+
+    rejouerBtn.addEventListener("click", function() {
+        window.location.href = window.location.href;
+    });
+
+    const retourBtn = document.createElement("button");
+    retourBtn.textContent = "Retour au menu";
+    retourBtn.classList.add("button");
+
+    retourBtn.addEventListener("click", function() {
+        window.location.href = "index.html";
+    });
+
+    boutonsDiv.appendChild(rejouerBtn);
+    boutonsDiv.appendChild(retourBtn);
+
+    cadre.appendChild(titre);
+    cadre.appendChild(boutonsDiv);
+
+    document.body.appendChild(cadre);
 }
 function generateEmojiExplosion() {
     const emojis = "👎"; 
@@ -29,4 +65,5 @@ function generateEmojiExplosion() {
             emoji.classList.add("fall");
         }, Math.random() * 1000);
     }
+    finJeu("Vous avez perdu ...");
 }
