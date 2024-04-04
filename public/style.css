@@ -45,6 +45,15 @@ img {
   -webkit-text-stroke-color:darkolivegreen;
 }
 
+.soustitre {
+  text-align: center;
+  font-family: 'Nanum', sans-serif;
+  font-size: 4vw;
+  color:goldenrod;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color:darkolivegreen;
+}
+
 .description{
   position: absolute;
   top: 25%;
@@ -141,6 +150,18 @@ body{
 .descjeu {
   font-size: 2.5vw;
   color:gold;
+}
+
+.consulter {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width:fit-content;
+  padding: 5px 10px;
+  transform: translate(-50%, 0%);
+  background-color:darkgray;
+  border: 2px solid #bb5000; /* Ajout de la bordure */
+  font-family: 'Nanum', sans-serif;
 }
 
 

@@ -11,22 +11,26 @@
 
 <body>
 
-  <div class='titre'>RECIPEDLE</div>
-  <div class='jeu1'>
-    <div class="descjeu1">Choisissez les ingredient dont vous disposer:</div>
+  <div class="titre">RECIPEDLE - Consulter les recettes</div>
+  <div class="consulter">
+    <div class="descjeu">Choisissez les ingredients dont vous disposez :</div>
+    <div class="jeucontenu">
+      <form id="ingredient">
+        <div>
+            <label id="nombre_ingredient">0 Ingredient :</label>
+        </div>
+        <div>
+            <button type="button" id="ajouter">Ajouter</button>
+            <button type="button" id="supprimer">Supprimer</button>
+            <button type="button" id="valider">Valider</button>
+        </div>
+      </form>
+      <div id="tableContainer"></div>
+    </div>
   </div>
-  <form id="ingredient">
-    <div>
-        <label id="nombre_ingredient">0 Ingrédient :</label>
-    </div>
-    <div>
-        <button type="button" id="ajouter">Ajouter</button>
-        <button type="button" id="supprimer">Supprimer</button>
-        <button type="button" id="valider">Valider</button>
-    </div>
-</form>
+  
  
-<div id="tableContainer"></div>
+
 
 </body>
 
