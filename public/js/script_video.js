@@ -15,7 +15,7 @@ function init() {
     images.forEach(function (image) {
         const videoId = image.id;
         console.log("Id vidéo = "+ videoId)
-        const apiUrl = "https://www.googleapis.com/youtube/v3/videos?id=" + videoId + "&part=snippet&key=" + apiKey;
+        const apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=" + videoId + "&key=" + apiKey;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -25,6 +25,10 @@ function init() {
             })
             .then(data => {
                 console.log(data)
+                const statistics = data.items[0].statistics;
+                const likes = statistics.likeCount;
+            
+                console.log("Likes:", likes);
                 const miniaurl = data.items[0].snippet.thumbnails.high.url;
                 console.log('URL de la miniature :', miniaurl);
                 image.setAttribute("src",  miniaurl);
