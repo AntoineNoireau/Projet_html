@@ -1,4 +1,5 @@
 var tentative = 0;
+var nbTourMax = 6;
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
@@ -224,7 +225,7 @@ ingredientForm.addEventListener("submit", function (event) {
     }else{
       submitButton.disabled = false;
       tentative++;
-      if(tentative === 2)
+      if(tentative === nbTourMax)
       {
         generateEmojiExplosion();
       }
