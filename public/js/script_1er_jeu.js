@@ -218,6 +218,7 @@ ingredientForm.addEventListener("submit", function (event) {
       
       
     if (verifArray.every(element => element === 1)) {
+      explodeConfetti();
       texte = document.createElement("p")
       texte.textContent = "Bravo !";
       resultatsDiv.appendChild(texte);
