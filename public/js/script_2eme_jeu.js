@@ -25,8 +25,15 @@ fetch("http://localhost:3000/jeu_2")
         nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
 
         ingredientsIds = data.listerep
-            .filter(item => item.id_recette === numRecette)
-            .map(item => item.id_ingredient);
+        .filter(item => item.id_recette === numRecette)
+        .map(item => item.id_ingredient)
+        .sort((a, b) => {
+            const ordreA = data.listerep.find(e => e.id_ingredient === a && e.id_recette === numRecette)?.ordre;
+            const ordreB = data.listerep.find(e => e.id_ingredient === b && e.id_recette === numRecette)?.ordre;
+            
+            return ordreA - ordreB;
+        });
+
 
         var tableauHtml = '<table> <tr>';
 
