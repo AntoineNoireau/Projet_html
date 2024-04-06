@@ -1,7 +1,7 @@
-function redirectToGame() {
+function redirectToGame(page) {
     const sliderValue = document.getElementById("mySlider").value;
     localStorage.setItem("sliderValue", sliderValue);
-    window.location.href = "Mode_de_jeu_2.html"; 
+    window.location.href = page; 
   }
 function explodeConfetti() {
     for(let index = 0; index <= 30; index++){

@@ -11,7 +11,7 @@ window.onload = function() {
     }
   };
 
-  let ingredientsIds;
+let ingredientsIds;
 let ingredient;
 let indexIngredientAAjoute = [];
 let ingredientAAjoute = [];

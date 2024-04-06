@@ -1,5 +1,15 @@
 var tentative = 0;
 var nbTourMax = 6;
+
+//set niveau de difficulté
+var difficulte = 1;
+
+window.onload = function() {
+    const sliderValue = localStorage.getItem("sliderValue");
+    if (sliderValue !== null) {
+        difficulte = parseInt(sliderValue);
+    }
+  };
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];

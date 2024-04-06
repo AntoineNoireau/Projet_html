@@ -66,7 +66,19 @@ img {
   font-size: 2.5vw;
   color:gold;
 }
-
+.difficulte{
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  width: 22%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+  background-color:darkgray;
+  border: 2px solid #bb5000; /* Ajout de la bordure */
+  font-family: 'Nanum', sans-serif;
+  font-size: 2.5vw;
+  color:darkolivegreen;
+}
 footer {
   text-align: center;
   position: absolute;
@@ -101,13 +113,15 @@ body{
   flex-direction: column;
   align-items: center;
 }
-
+input[type="range"]::-webkit-slider-thumb{
+  background-color: darkolivegreen; /* Changez la couleur de la piste */
+}
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  width: 10%; /* Largeur numéros slider */
+  width: 45%; /* Largeur numéros slider */
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 25px;
 }
 
 .slider-labels span {
