@@ -253,6 +253,7 @@ body {
   overflow-y: auto; 
   max-height: 100vh; 
 }
+
 .custom-btn {
   width: 130px;
   height: 40px;
@@ -345,6 +346,12 @@ body {
   }
   .btn-7 span:hover:after {
     width: 100%;
+  }
+  .smaller {
+    width: calc(90%); 
+    height: calc(70%); 
+    line-height: calc(40px - 10px); /* Ajuster la ligne à la hauteur */
+    padding: 5px 10px;
   }
 
   select {

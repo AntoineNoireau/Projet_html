@@ -82,6 +82,7 @@ fetch("json/ingredients.json")
     const submitButton = document.createElement("button");
     submitButton.id = "submitButton";
     submitButton.textContent = "Valider";
+    submitButton.classList = "custom-btn btn-7 smaller";
     ingredientForm.appendChild(submitButton);
 
 
