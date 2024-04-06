@@ -1,5 +1,15 @@
 var tentative = 0;
 var nbTourMax = 6;
+
+//set niveau de difficulté
+var difficulte = 1;
+
+window.onload = function() {
+    const sliderValue = localStorage.getItem("sliderValue");
+    if (sliderValue !== null) {
+        difficulte = parseInt(sliderValue);
+    }
+  };
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
@@ -112,6 +122,11 @@ fetch("json/ingredients.json")
     })
     // Ajout du bouton de soumission
 
+    const submitButton = document.createElement("button");
+    submitButton.id = "submitButton";
+    submitButton.textContent = "Valider";
+    submitButton.classList = "custom-btn btn-7 smaller";
+    ingredientForm.appendChild(submitButton);
 
 
 

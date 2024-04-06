@@ -105,7 +105,7 @@ function valider()
                             return ordreA - ordreB;
                         });                  
 
-                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' : '+ data.recette[i].nom+' </p> <table> <tr>';
+                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' : '+ data.recette[i].nom+' </p> <table style="text-align: center;"> <tr>';
 
                         ingredientsIds.forEach(ingredientId => {
                             ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);

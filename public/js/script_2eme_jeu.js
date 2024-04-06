@@ -11,7 +11,7 @@ window.onload = function() {
     }
   };
 
-  let ingredientsIds;
+let ingredientsIds;
 let ingredient;
 let indexIngredientAAjoute = [];
 let ingredientAAjoute = [];
@@ -136,7 +136,7 @@ fetch("http://localhost:3000/jeu_2")
         for (i = 0; i < recetteCharSize; i++) {
             recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
         }
-        recetteTableauHtml += '<td><button onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
+        recetteTableauHtml += '<td><button class="custom-btn btn-7 smaller" onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
         recetteTableauHtml += '</tr>';
 
         recetteTableauHtml += '</table>';
