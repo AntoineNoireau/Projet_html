@@ -9,7 +9,7 @@ function initialisation() {
             recetteBDD = data;
             console.log(recetteBDD); // Déplacez le console.log ici
             recette0 = document.querySelector("iframe");
-            recette0.id = recetteBDD[0].id;
+            recette0.id = recetteBDD[0].id-1;
 
             
 
@@ -23,7 +23,7 @@ function initialisation() {
                 var nouvelleImage = document.createElement("img");
                 
                 // Définissez l'ID de l'image sur le nom de la recette
-                nouvelleImage.id = recetteBDD[i].id;
+                nouvelleImage.id = recetteBDD[i].id-1;
 
                 nouvelleImage.src = "";
 

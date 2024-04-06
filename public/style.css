@@ -96,6 +96,14 @@ body{
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
 
+#ingredientForm img {
+  width: 50px; 
+  height: 50px; 
+  margin: 5px; 
+  border-radius: 50%; /* Bordure arrondie pour les images */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
+}
+
 .slider-container {
   display: flex;
   flex-direction: column;
