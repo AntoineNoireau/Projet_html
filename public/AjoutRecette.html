@@ -16,12 +16,12 @@
                     <label id="nombre_ingredient">0 Ingrédient :</label>
                 </div>
                 <div>
-                    <button type="button" id="ajouter">Ajouter</button>
-                    <button type="button" id="supprimer">Supprimer</button>
-                    <button type="button" id="creer">Créer</button>
+                    <button type="button" class="custom-btn btn-7" id="ajouter"><span>ajouter</span></button>
+                    <button type="button" class="custom-btn btn-7" id="supprimer"><span>Supprimer</span></button>
+                    <button type="button" class="custom-btn btn-7" id="creer"><span>Créer</span></button>
                 </div>
             </form>
-        
+        </br>
             <form id="recette">
                 <div>
                     <label for="ingredient_id">ID de la recette: </label>
@@ -35,13 +35,18 @@
                     <label for="ingredient_url">URL de l'image de la recette: </label>
                     <input type="url" id="recette_url" name="recette_url" required>
                 </div>
-                <button type="button" id="ajouter_recette">Valider</button>
+                <button type="button" class="custom-btn btn-7" id="ajouter_recette"><span>Valider</span></button>
             </form>
             
             <datalist id="listeIngredients"></datalist>
         </div>
+    </br>
+        <center>
+            <a href="index.html" class="button" >Retour au menu</a>
+          </center>
     </div>
-    
+</br>
+
 
     <script src="./js/script_ajout.js"></script>
 </body>
