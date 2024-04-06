@@ -115,8 +115,12 @@ body{
   width: 16px; /* Largeur numéros slider */
 }
 
-
-.image-droite {
+#video_sec {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.image-droite img{
   width: 500px; /* Largeur de l'image */
   height: 250px; /* Hauteur de l'image */
   float: right; /* Alignement à droite */
