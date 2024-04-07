@@ -13,7 +13,14 @@ window.onload = function() {
 //On choppe les recettes ici
 recette = [];
 ingredientdisplay = [];
+listingredient = [];
+
+
+
 display = [];
+
+
+
 fetch("http://localhost:3000/jeu_1")
   .then(response => response.json())
   .then(data => {
@@ -23,6 +30,8 @@ fetch("http://localhost:3000/jeu_1")
 
     recette =data.listerep.map(item => item.id_ingredient);
     console.log("recette = " +recette)
+    listingredient = data.ingredients;
+    console.log("Listingr = ",listingredient);
 
     
     display = data.ingredients;
@@ -62,6 +71,7 @@ fetch("json/ingredients.json")
   
 
     display.forEach(elem => {
+      /*
       let nameelem = elem.nom
       const input = document.createElement("input");
       input.type = "radio";
@@ -75,6 +85,39 @@ fetch("json/ingredients.json")
       ingredientForm.appendChild(input);
       ingredientForm.appendChild(label);
       ingredientForm.appendChild(document.createElement("br"));
+      */
+
+      const ingredientForm = document.getElementById("ingredientForm");
+
+      const image = document.createElement("img");
+      image.src = "png/gris.png";
+      ingredientForm.appendChild(image);
+      const icone = document.createElement("img");
+      icone.src = "png/" + elem.nom + ".png";
+      icone.style.position = "relative";
+  
+      // Positionner l'icône au centre de l'image gris
+      const grisRect = image.getBoundingClientRect();
+      const iconeWidth = icone.offsetWidth;
+      const iconeHeight = icone.offsetHeight;
+      // const iconeTop = grisRect.top + (grisRectheight - iconeHeight) / 2;
+      // const iconeLeft = grisRect.left + (grisRect.width - iconeWidth) / 2;
+      const iconeTop = 0;
+      const iconeLeft = -30;
+      icone.style.marginTop = "-25px";
+      icone.style.marginLeft = "-25px";
+  
+      icone.style.top = iconeTop + "px";
+      icone.style.left = iconeLeft + "px";
+  
+      icone.style.zIndex = "1";
+      icone.id = elem.nom;
+      icone.addEventListener("click", imageClicked);
+      icone.classList.add("script");
+
+      ingredientForm.appendChild(icone);
+
+
 
     })
     // Ajout du bouton de soumission
@@ -91,36 +134,27 @@ fetch("json/ingredients.json")
   .catch(error => console.error("Erreur lors de la récupération des données :", error));
 
 
-  fetch("http://localhost:3000/jeu_1")
-  .then(response => response.json())
-  .then(data => {
-
-    console.log(data.listerep);
-
-    console.log(data.ingredients);
-
-  });
 
 
 
-const ingredientForm = document.getElementById("ingredientForm");
-let selectedIngredientsArray = []
-let Jeucontinu = true;
-let nbproposion = 0;
 
-ingredientForm.addEventListener("submit", function (event) {
+  const ingredientForm = document.getElementById("ingredientForm");
+  let selectedIngredientsArray = []
+  let Jeucontinu = true;
+  let nbproposion = 0;
 
 
-  event.preventDefault(); // Pour empêcher la soumission du formulaire
+  function imageClicked (event) {
 
-  const selectedIngredient = document.querySelector('input[name="ingredient"]:checked');
-  if (selectedIngredient) {
-    const radioButtons = document.querySelector('input[type="radio"][name="ingredient"]:checked');
-    radioButtons.disabled =true
-    radioButtons.checked  = false
 
-    selectedIngredientsArray.push(selectedIngredient.value);
-    console.log(selectedIngredient.id);
+    
+
+    const selectedIngredient = event.target.id;
+    if (selectedIngredient) {
+      event.target.removeEventListener("click", imageClicked);
+  
+
+      selectedIngredientsArray.push(listingredient.find(ingr => ingr.nom ===selectedIngredient).id);
     const resultatsDiv = document.getElementById("resultats");
 
     const image = document.createElement("img");
@@ -128,7 +162,7 @@ ingredientForm.addEventListener("submit", function (event) {
     resultatsDiv.appendChild(image);
 
     const icone = document.createElement("img");
-    icone.src = "png/" + selectedIngredient.id + ".png";
+    icone.src = "png/" + selectedIngredient + ".png";
     icone.style.position = "relative";
 
     // Positionner l'icône au centre de l'image gris
@@ -154,8 +188,13 @@ ingredientForm.addEventListener("submit", function (event) {
   }
 
   if (selectedIngredientsArray.length === recette.length) {
-    const submitButton = document.getElementById("submitButton");
-    submitButton.disabled = true;
+    
+    const ingredientForm = document.getElementById("ingredientForm");
+      imagecliquable = ingredientForm.querySelectorAll(".script");
+      imagecliquable.forEach(img => {
+        img.removeEventListener("click", imageClicked);
+
+      });
 
 
     const verifArray = new Array(recette.length).fill(0);
@@ -222,12 +261,12 @@ ingredientForm.addEventListener("submit", function (event) {
       console.log(resultatsDiv)
       console.log(resultatsDiv.children[0])
       nbproposion++;
-       const radioButtonsChecked = document.querySelectorAll('input[type="radio"][name="ingredient"]:disabled');
-    
-    radioButtonsChecked.forEach(button => {
-      button.disabled = false;
-  });
-      
+      const ingredientForm = document.getElementById("ingredientForm");
+      imagecliquable = ingredientForm.querySelectorAll(".script");
+      imagecliquable.forEach(img => {
+        img.addEventListener("click", imageClicked);
+
+      });
       
     if (verifArray.every(element => element === 1)) {
       explodeConfetti(); 
@@ -262,4 +301,4 @@ ingredientForm.addEventListener("submit", function (event) {
 
 
 }
-);
+
