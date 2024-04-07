@@ -11,7 +11,7 @@ window.onload = function() {
     }
   };
 
-  let ingredientsIds;
+let ingredientsIds;
 let ingredient;
 let indexIngredientAAjoute = [];
 let ingredientAAjoute = [];
@@ -25,8 +25,15 @@ fetch("http://localhost:3000/jeu_2")
         nombreColonnes = data.listerep.filter(item => item.id_recette === numRecette).length;
 
         ingredientsIds = data.listerep
-            .filter(item => item.id_recette === numRecette)
-            .map(item => item.id_ingredient);
+        .filter(item => item.id_recette === numRecette)
+        .map(item => item.id_ingredient)
+        .sort((a, b) => {
+            const ordreA = data.listerep.find(e => e.id_ingredient === a && e.id_recette === numRecette)?.ordre;
+            const ordreB = data.listerep.find(e => e.id_ingredient === b && e.id_recette === numRecette)?.ordre;
+            
+            return ordreA - ordreB;
+        });
+
 
         var tableauHtml = '<table> <tr>';
 
@@ -129,7 +136,7 @@ fetch("http://localhost:3000/jeu_2")
         for (i = 0; i < recetteCharSize; i++) {
             recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
         }
-        recetteTableauHtml += '<td><button onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
+        recetteTableauHtml += '<td><button class="custom-btn btn-7 smaller" onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
         recetteTableauHtml += '</tr>';
 
         recetteTableauHtml += '</table>';

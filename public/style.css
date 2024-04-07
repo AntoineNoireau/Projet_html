@@ -45,6 +45,15 @@ img {
   -webkit-text-stroke-color:darkolivegreen;
 }
 
+.soustitre {
+  text-align: center;
+  font-family: 'Nanum', sans-serif;
+  font-size: 4vw;
+  color:goldenrod;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color:darkolivegreen;
+}
+
 .description{
   position: absolute;
   top: 25%;
@@ -57,7 +66,19 @@ img {
   font-size: 2.5vw;
   color:gold;
 }
-
+.difficulte{
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  width: 22%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+  background-color:darkgray;
+  border: 2px solid #bb5000; /* Ajout de la bordure */
+  font-family: 'Nanum', sans-serif;
+  font-size: 2.5vw;
+  color:darkolivegreen;
+}
 footer {
   text-align: center;
   position: absolute;
@@ -87,18 +108,28 @@ body{
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
 
+#ingredientForm img {
+  width: 50px; 
+  height: 50px; 
+  margin: 5px; 
+  border-radius: 50%; /* Bordure arrondie pour les images */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
+}
+
 .slider-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+input[type="range"]::-webkit-slider-thumb{
+  background-color: darkolivegreen; /* Changez la couleur de la piste */
+}
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  width: 10%; /* Largeur numéros slider */
+  width: 45%; /* Largeur numéros slider */
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 25px;
 }
 
 .slider-labels span {
@@ -141,6 +172,18 @@ body{
 .descjeu {
   font-size: 2.5vw;
   color:gold;
+}
+
+.consulter {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width:fit-content;
+  padding: 5px 10px;
+  transform: translate(-50%, 0%);
+  background-color:darkgray;
+  border: 2px solid #bb5000; /* Ajout de la bordure */
+  font-family: 'Nanum', sans-serif;
 }
 
 
@@ -213,3 +256,121 @@ body{
 .cadre div {
   text-align: center;
 }
+
+body {
+  overflow-y: auto; 
+  max-height: 100vh; 
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  margin: 5px; 
+  
+}
+
+.btn-7 {
+  background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  .btn-7 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn-7:before,
+  .btn-7:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn-7:before{
+     height: 0%;
+     width: 2px;
+  }
+  .btn-7:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-7:hover{
+    color: rgba(251,75,2,1);
+    background: transparent;
+  }
+  .btn-7:hover:before {
+    height: 100%;
+  }
+  .btn-7:hover:after {
+    width: 100%;
+  }
+  .btn-7 span:before,
+  .btn-7 span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn-7 span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btn-7 span:after {
+    height: 2px;
+    width: 0%;
+  }
+  .btn-7 span:hover:before {
+    height: 100%;
+  }
+  .btn-7 span:hover:after {
+    width: 100%;
+  }
+  .smaller {
+    width: calc(90%); 
+    height: calc(70%); 
+    line-height: calc(40px - 10px); /* Ajuster la ligne à la hauteur */
+    padding: 5px 10px;
+  }
+
+  select {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    font-size: 16px;
+    margin: 5px;
+    outline: 0;
+    padding: 3px;
+    width: 40%;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  }

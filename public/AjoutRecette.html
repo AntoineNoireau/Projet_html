@@ -3,38 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styleAjout.css">
+
     <title>Ajout de Recette</title>
 </head>
 <body>
-    <h2>Ajout de Recette</h2>
-    <form id="ingredient">
-        <div>
-            <label id="nombre_ingredient">0 Ingrédient :</label>
+    <div class="titre">RECIPEDLE - Ajout de Recette</div>
+    <div class="consulter">
+        <div class="descjeu">Ajoutez une recette a la liste</div>
+        <div class="jeucontenu">
+            <form id="ingredient">
+                <div>
+                    <label id="nombre_ingredient">0 Ingrédient :</label>
+                </div>
+                <div>
+                    <button type="button" class="custom-btn btn-7" id="ajouter"><span>Ajouter</span></button>
+                    <button type="button" class="custom-btn btn-7" id="supprimer"><span>Supprimer</span></button>
+                    <button type="button" class="custom-btn btn-7" id="creer"><span>Créer</span></button>
+                </div>
+            </form>
+        </br>
+            <form id="recette">
+                <div class="va-cont">
+                    <div class="va-inn">
+                        <form onsubmit="" class="form-container">
+                            
+                            <div class="form-row">
+                                <input type="text" id="recette_id" name="recette_id" class="form-textbox" required>
+                                <label for="ingredient_id" class="form-label">ID de la recette</label>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" id="recette_nom" name="recette_nom" class="form-textbox" required>
+                                <label for="ingredient_nom" class="form-label">Nom de la recette</label>
+                            </div>
+                            <div class="form-row">
+                                <input type="url" id="recette_url" name="recette_url" class="form-textbox" required>
+                                <label for="ingredient_url" class="form-label">URL de l'image de la recette </label>                 
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+                <button type="button" class="custom-btn btn-7" id="ajouter_recette"><span>Valider</span></button>
+            </form>
+            
+            <datalist id="listeIngredients"></datalist>
         </div>
-        <div>
-            <button type="button" id="ajouter">Ajouter</button>
-            <button type="button" id="supprimer">Supprimer</button>
-            <button type="button" id="creer">Créer</button>
-        </div>
-    </form>
+    </br>
+        <center>
+            <a href="index.html" class="button" >Retour au menu</a>
+          </center>
+    </div>
+</br>
 
-    <form id="recette">
-        <div>
-            <label for="ingredient_id">ID de la recette: </label>
-            <input type="text" id="recette_id" name="recette_id" required>
-        </div>
-        <div>
-            <label for="ingredient_nom">Nom de la recette: </label>
-            <input type="text" id="recette_nom" name="recette_nom" required>
-        </div>
-        <div>
-            <label for="ingredient_url">URL de l'image de la recette: </label>
-            <input type="url" id="recette_url" name="recette_url" required>
-        </div>
-        <button type="button" id="ajouter_recette">Valider</button>
-    </form>
-    
-    <datalist id="listeIngredients"></datalist>
 
     <script src="./js/script_ajout.js"></script>
 </body>
