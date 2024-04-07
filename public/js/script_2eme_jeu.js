@@ -35,7 +35,7 @@ fetch("http://localhost:3000/jeu_2")
         });
 
 
-        var tableauHtml = '<table> <tr>';
+        var tableauHtml = '</br><table class="center"> <tr>';
 
         if(difficulte === 1)
         {
@@ -131,17 +131,18 @@ fetch("http://localhost:3000/jeu_2")
 
         let recetteChar = nomRecette.split('');
         let recetteCharSize = recetteChar.length;
-        var recetteTableauHtml = '<table><tr>';
+        var recetteTableauHtml = '</br><table class="center"><tr>';
 
         for (i = 0; i < recetteCharSize; i++) {
             recetteTableauHtml += '<td> <input type="text" class="Input-text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
         }
-        recetteTableauHtml += '<td><button class="custom-btn btn-7 smaller" onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
+        var buttonHtml = '<button class="custom-btn btn-7 center" onclick="verifRecette(\'' + nomRecette + '\')"><span>Valider</span></button>';
         recetteTableauHtml += '</tr>';
 
         recetteTableauHtml += '</table>';
 
         document.getElementById('tableJeu1').innerHTML = recetteTableauHtml;
+        document.getElementById('button').innerHTML = buttonHtml;
 
         var lastRowInputs = document.querySelectorAll("#tableJeu1 input[type='text']");
         var lastRowFirstInput = lastRowInputs[lastRowInputs.length - recetteCharSize];
@@ -200,6 +201,7 @@ function verifRecette(nomRecette) {
                     }
                     else{
                         case1.readOnly = true;
+                        case1.style.backgroundColor = "red";
                     }
                 }
             }
@@ -224,6 +226,7 @@ function updateImage()
     var id = indexIngredientAAjoute[0];
     if(indexIngredientAAjoute.length != 0)
     {
+        console.log(ingredientAAjoute[0].image);
         let image = document.querySelector("#tableContainer img[id='"+(100+id)+"']");
         let nom = document.querySelector("#tableContainer td[id='"+(100+id+ingredientsIds.length)+"']");
         if (image) {
@@ -257,7 +260,7 @@ function updateImage()
 function nouvelleLigne(nomRecette, nb) {
     let recetteChar = nomRecette.split('');
     let recetteCharSize = recetteChar.length;
-    var recetteTableauHtml = '<table><tr>';
+    var recetteTableauHtml = '<table class="center"><tr>';
     for (i = 0; i < recetteCharSize; i++) {
         recetteTableauHtml += '<td> <input type="text" class="Input-text" id="' + (i + 1 + (nb - 1) * recetteCharSize) + '" minlength="0" maxlength="1" size="1" /></td>';
     }
@@ -303,7 +306,7 @@ function perdu() {
 
 document.addEventListener('keydown', function (event) {
     if (event.key === "Enter") {
-        document.querySelector("#tableJeu1 button").click();
+        document.querySelector("#button button").click();
     }
 });
 

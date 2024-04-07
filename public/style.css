@@ -397,7 +397,6 @@ body {
     border-radius: 0.4rem;
     transition: box-shadow var(--transitionDuration);
     text-align: center;
-    align-content: center;
   }
   
   .Input-text::placeholder {
@@ -408,3 +407,10 @@ body {
     vertical-align: middle;
     text-align: center; 
   }
+
+  .center {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  
