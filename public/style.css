@@ -64,7 +64,7 @@ img {
   border: 2px solid #bb5000; /* Ajout de la bordure */
   font-family: 'Nanum', sans-serif;
   font-size: 2.5vw;
-  color:gold;
+  color:rgb(58, 44, 10);
 }
 .difficulte{
   position: absolute;
