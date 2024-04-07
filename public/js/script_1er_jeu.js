@@ -105,6 +105,10 @@ fetch("json/ingredients.json")
       ingredientForm.appendChild(icone);
 
     })
+    const separatorLine = document.createElement("hr");
+    separatorLine.classList = ("styleHR");
+
+    ingredientForm.appendChild(separatorLine);
   })
   .catch(error => console.error("Erreur lors de la récupération des données :", error));
 

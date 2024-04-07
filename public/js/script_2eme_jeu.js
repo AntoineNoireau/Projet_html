@@ -134,7 +134,7 @@ fetch("http://localhost:3000/jeu_2")
         var recetteTableauHtml = '<table><tr>';
 
         for (i = 0; i < recetteCharSize; i++) {
-            recetteTableauHtml += '<td> <input type="text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
+            recetteTableauHtml += '<td> <input type="text" class="Input-text" id="' + (i + 1) + '" minlength="0" maxlength="1" size="1" /></td>';
         }
         recetteTableauHtml += '<td><button class="custom-btn btn-7 smaller" onclick="verifRecette(\'' + nomRecette + '\')">Valider</button></td>';
         recetteTableauHtml += '</tr>';
@@ -259,7 +259,7 @@ function nouvelleLigne(nomRecette, nb) {
     let recetteCharSize = recetteChar.length;
     var recetteTableauHtml = '<table><tr>';
     for (i = 0; i < recetteCharSize; i++) {
-        recetteTableauHtml += '<td> <input type="text" id="' + (i + 1 + (nb - 1) * recetteCharSize) + '" minlength="0" maxlength="1" size="1" /></td>';
+        recetteTableauHtml += '<td> <input type="text" class="Input-text" id="' + (i + 1 + (nb - 1) * recetteCharSize) + '" minlength="0" maxlength="1" size="1" /></td>';
     }
     recetteTableauHtml += '</tr>';
 
