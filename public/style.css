@@ -64,7 +64,7 @@ img {
   border: 2px solid #bb5000; /* Ajout de la bordure */
   font-family: 'Nanum', sans-serif;
   font-size: 2.5vw;
-  color:gold;
+  color:rgb(58, 44, 10);
 }
 .difficulte{
   position: absolute;
@@ -374,3 +374,43 @@ body {
     color: #8a97a0;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
   }
+
+  .styleHR {
+    width: 80%;
+    margin-top: 20px;
+    border: none;
+    border-top: 2px dashed rgb(36, 32, 32);
+  }
+
+  .Input-text {
+    display: block;
+    margin: 0;
+    margin-bottom: 18px;
+    padding: var(--inputPaddingV) var(--inputPaddingH);
+    color: black;
+    width: calc(100% - 6px);
+    /*font-family: inherit;*/
+    font-size: var(--inputFontSize);
+    font-weight: inherit;
+    line-height: var(--inputLineHeight);
+    border: none;
+    border-radius: 0.4rem;
+    transition: box-shadow var(--transitionDuration);
+    text-align: center;
+  }
+  
+  .Input-text::placeholder {
+    color: #B0BEC5;
+  }
+
+  td{
+    vertical-align: middle;
+    text-align: center; 
+  }
+
+  .center {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  
