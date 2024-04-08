@@ -105,15 +105,31 @@ fetch("http://localhost:3000/jeu_1")
       icone.addEventListener("click", imageClicked);
       icone.classList.add("script");
 
+      
+      
+      // Ajoutez la nouvelle div juste après l'élément existant
+      
+      //const nomIngredient = document.createElement("p");
+      //nomIngredient.textContent = elem.nom;
+      //nomIngredient.style.position = "center";
 
-      const nomIngredient = document.createElement("p");
-      nomIngredient.textContent = elem.nom;
-      nomIngredient.style.position = "center";
       ingredientForm.appendChild(icone);// Ajout du paragraphe à la même div que l'image
+      
 
-      div_nom.appendChild(nomIngredient);
+      //div_nom.appendChild(nomIngredient);
 
     })
+    form = document.getElementById("ingredientForm");
+    (form.querySelectorAll('[id]')).forEach(element => {
+      var divnouvingr = document.createElement('div');
+      divnouvingr.textContent = element.id;
+      divnouvingr.style.position = 'relative'; // Utilisez une position relative pour positionner la nouvelle div par rapport à sa position normale
+      divnouvingr.style.top = '20px'; // Ajustez la valeur selon votre préférence pour la distance entre les deux éléments
+      divnouvingr.style.margin = '0 auto';
+      element.parentNode.insertBefore(divnouvingr, element.nextSibling);
+    });
+
+
   })
   .catch(error => console.error("Erreur lors de la récupération des données :", error));
 
