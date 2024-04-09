@@ -6,15 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var bool = [];
 
     var form_ingredient = document.getElementById('ingredient');
-    var form_recette = document.getElementById('recette');
 
-    var btn_valider = form_recette.querySelector('#ajouter_recette');
     var label = form_ingredient.querySelector('#nombre_ingredient');
     var btn_ajouter = form_ingredient.querySelector('#ajouter');
     var btn_supprimer = form_ingredient.querySelector('#supprimer');
     var btn_creer = form_ingredient.querySelector('#creer');
-
-    let ingredients_recette = []
     
     btn_ajouter.addEventListener('click', function () {
         var result = creer_liste_deroulante(form_ingredient, current_nb, current_nb_know);
@@ -44,9 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
         bool = result[3];
     });
 
+    var form_recette = document.getElementById('recette');
+    var btn_valider = document.querySelector('#ajouter_recette'); // Sélection déplacée ici
     btn_valider.addEventListener('click', function () {
         if (form_recette.checkValidity()) {
-            ingredients_recette = RecupIngredient(form_ingredient, current_nb);
+            result = RecupIngredient(form_ingredient, current_nb, bool);
+            EnvoieDonnes(document.querySelector('#recette_nom'),)
 
         } else {
             alert('Veuillez remplir tous les champs obligatoires.');
