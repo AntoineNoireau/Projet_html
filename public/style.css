@@ -18,7 +18,10 @@ img {
   margin-right: 5px;
   margin-left: 5px;
 }
-
+.div-relative {
+  position: relative;
+  display: inline-block; /* Permet aux div d'être alignées horizontalement */
+}
 .button:hover {
   background-color: #ee7000;
 }
