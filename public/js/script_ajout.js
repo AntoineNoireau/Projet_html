@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     var current_nb = 0;
+    var current_nb_know = 0;
+    var current_nb_unknow = 0;
+
+    var bool = [];
 
     var form_ingredient = document.getElementById('ingredient');
     var form_recette = document.getElementById('recette');
@@ -13,13 +17,31 @@ document.addEventListener('DOMContentLoaded', function () {
     let ingredients_recette = []
     
     btn_ajouter.addEventListener('click', function () {
-        current_nb = creer_liste_deroulante(form_ingredient, current_nb);
+        var result = creer_liste_deroulante(form_ingredient, current_nb, current_nb_know);
+        current_nb = result[0];
+        current_nb_know = result[1];
         label.textContent = current_nb + ' Ingrédient(s) :';
+        bool.push(0);
+        console.log(current_nb_know);
+        console.log(current_nb);
+    });
+
+    btn_creer.addEventListener('click', function () {
+        var result = creer_champs(form_ingredient, current_nb,current_nb_unknow);
+        current_nb = result[0];
+        current_nb_unknow = result[1];
+        label.textContent = current_nb + ' Ingrédient(s) :';
+        bool.push(1);
+        console.log(current_nb_unknow);
+        console.log(current_nb);
     });
 
     btn_supprimer.addEventListener('click', function () {
-        current_nb = supprimer_liste_deroulante(form_ingredient, current_nb);
-        label.textContent = current_nb + ' Ingrédient(s) :';
+        result = supprimer_liste_deroulante(form_ingredient, current_nb, current_nb_know, current_nb_unknow, bool);
+        current_nb = result[0];
+        current_nb_know = result[1];
+        current_nb_unknow = result[2];
+        bool = result[3];
     });
 
     btn_valider.addEventListener('click', function () {
@@ -30,15 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Veuillez remplir tous les champs obligatoires.');
         }
     });
-
-    btn_creer.addEventListener('click', function () {
-
-    });
 });
 
 ///////////////////////////////Fonction pour générer les cases de chaque ingrédient///////////////////////////////
 
-function creer_liste_deroulante(form, nb) {
+function creer_liste_deroulante(form, nb, nb_know) {
     var i = nb;
     var div = document.createElement('div');
     div.id = 'div_' + i
@@ -77,18 +95,56 @@ function creer_liste_deroulante(form, nb) {
             console.error('Erreur :', error);
             throw error; // Propage l'erreur pour la gérer ultérieurement si nécessaire
         });
-    return i + 1;
+    return [i + 1, nb_know + 1];
+}
+
+///////////////////////////////Fonction pour générer les inputs de chaque ingrédient///////////////////////////////
+
+function creer_champs(form,nb, nb_unknown) {
+    var i = nb;
+    var div = document.createElement('div');
+    div.id = 'div_' + i
+    var label = document.createElement('label');
+    //console.log('label_' + i);
+    label.textContent = 'Ingrédient n°' + (i + 1) + ': '; // Texte du label
+    label.id = 'label_' + i;
+    div.appendChild(label);
+    var ingredient = document.createElement('input');
+    ingredient.id = 'ingredient_' + i;
+    ingredient.type = 'text';
+    ingredient.placeholder = 'nom ingrédient';
+    div.appendChild(ingredient);
+
+    var image = document.createElement('input');
+    image.id = 'ingredient_image_' + i;
+    image.type = 'text';
+    image.placeholder = 'url de l\'image'
+    div.appendChild(image);
+
+    //Créer des inputs ici
+
+    form.appendChild(div);
+    return [i + 1,nb_unknown+1];
 }
 
 ///////////////////////////////Fonction pour supprimer les cases de chaque ingrédient///////////////////////////////
 
-function supprimer_liste_deroulante(form, nb) {
+function supprimer_liste_deroulante(form, nb, nb_know, nb_unknown, bool_new) {
     if (nb > 0) {
         var div = form.querySelector('#div_' + (nb - 1));
         //console.log('label_' + nb);
         div.remove();
 
-        return nb - 1;
+        if(bool_new[nb-1] == 0){
+            bool_new.pop();
+            return [nb - 1, nb_know - 1, nb_unknown,bool_new];
+        }
+        else{
+            bool_new.pop();
+            return [nb - 1,nb_know, nb_unknown - 1,bool_new];
+        }
+
+        
     }
     else {
         error.log('aucun ingrédient à supprimer');
@@ -98,19 +154,28 @@ function supprimer_liste_deroulante(form, nb) {
 
 ///////////////////////////////Fonction pour remplir le tableau d'ingrédient///////////////////////////////
 
-function RecupIngredient(form, NbIngredient) {
-    let tab = [];
+function RecupIngredient(form, NbIngredient, bool_new) {
+    let tab_glob = [];
+    let tab_unknow = { names: [], images: [] }; // Initialisez name et image comme des tableaux vides
     for (var i = 0; i < NbIngredient; i++) {
-        tab.push(form.querySelector('#ingredient_' + i).value);
+        tab_glob.push(form.querySelector('#ingredient_' + i).value);
+
+        if (bool_new[i] == 1) {
+            // Si un nouvel ingrédient est créé, ajoutez son nom et son image à tab_unknow
+            tab_unknow.names.push(form.querySelector('#ingredient_' + i).value);
+            tab_unknow.images.push(form.querySelector('#ingredient_image_' + i).value);
+        }
     }
-    return tab;
+    return [tab_glob, tab_unknow];
 }
+
 
 ///////////////////////////////Fonction pour transmettre les données///////////////////////////////
 
-function EnvoieDonnes(nom,image,liste_ingredients){
+function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_créés){
     var data_recette = {
         liste_ingredients: liste_ingredients,
+        liste_ingredients_créés: liste_ingredients_créés,
         nom: nom,
         image: image
     };
