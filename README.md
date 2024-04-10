@@ -10,7 +10,7 @@ membres de l’équipe :
     Pierrick Jouron, base de donnée
     Thomas Creusier, premier mode de jeu
     Robin Mercier, front
-    Antoine Noireau, deuxième mode de jeu
+    Antoine Noireau, deuxième mode de jeu, front
 
 Technologies utilisées : javascript,
 

@@ -111,13 +111,15 @@ function creer_champs(form,nb, nb_unknown) {
     var ingredient = document.createElement('input');
     ingredient.id = 'ingredient_' + i;
     ingredient.type = 'text';
-    ingredient.placeholder = 'nom ingrédient';
+    ingredient.placeholder = '  nom ingrédient';
+    ingredient.classList.add("arrondir");
     div.appendChild(ingredient);
 
     var image = document.createElement('input');
     image.id = 'ingredient_image_' + i;
     image.type = 'text';
-    image.placeholder = 'url de l\'image'
+    image.placeholder = '  url de l\'image'
+    image.classList.add("arrondir");
     div.appendChild(image);
 
     //Créer des inputs ici
