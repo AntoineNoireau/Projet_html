@@ -93,8 +93,8 @@ body{
   margin: 0;
   padding: 0;
   background-image: url('/png/bg_recipedle.jpg');
-  background-size: cover; /* Pour couvrir l'ensemble de la fenêtre */
-  background-repeat: no-repeat; /* Pour éviter la répétition de l'image */
+  background-size: cover; 
+  background-repeat: no-repeat;
   overflow:hidden;
   background-size: cover; 
   background-repeat: no-repeat; 
