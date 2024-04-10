@@ -106,6 +106,7 @@ input[type=submit] {
 .form-submit {
 	width: 100%;
 	padding: 20px;
+	border-radius: 10px;
 }
 
 .form-textbox {	
