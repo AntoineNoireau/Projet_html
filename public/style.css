@@ -415,9 +415,15 @@ body {
     color: #B0BEC5;
   }
 
-  td{
+  .recetteTable{
     vertical-align: middle;
     text-align: center; 
+    border: 1px solid #2e2b12; 
+    border-radius: 10px;
+    border-collapse: collapse; 
+    border-style:outset; 
+    background-color: #E1C699; 
+    padding: 10px; 
   }
 
   .center {

@@ -43,7 +43,7 @@ fetch("http://localhost:3000/jeu_2")
                 ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
     
                 if (ingredient) {
-                    tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
+                    tableauHtml += '<td class="recetteTable"><img src="' + ingredient.image + '"></td>';
                 }
             });
             tableauHtml += '</tr><tr>';
@@ -52,7 +52,7 @@ fetch("http://localhost:3000/jeu_2")
                 const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
     
                 if (ingredient) {
-                    tableauHtml += '<td>' + ingredient.nom + '</td>';
+                    tableauHtml += '<td class="recetteTable">' + ingredient.nom + '</td>';
                 }
             });
         }
@@ -63,9 +63,9 @@ fetch("http://localhost:3000/jeu_2")
         
                 if (ingredient) {
                     if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
-                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
+                        tableauHtml += '<td class="recetteTable"><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
                     } else {
-                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
+                        tableauHtml += '<td class="recetteTable"><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
                     }
                 }
             });
@@ -77,9 +77,9 @@ fetch("http://localhost:3000/jeu_2")
         
                 if (ingredient) {
                     if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
-                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
+                        tableauHtml += '<td class="recetteTable" id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
                     } else {
-                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
+                        tableauHtml += '<td class="recetteTable" id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
                         indexIngredientAAjoute.push(index+1);
                         ingredientAAjoute.push(ingredient);
                     }
@@ -93,9 +93,9 @@ fetch("http://localhost:3000/jeu_2")
         
                 if (ingredient) {
                     if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
-                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
+                        tableauHtml += '<td class="recetteTable"><img id="'+ (100+index+1) +'" src="' + ingredient.image + '"></td>';
                     } else {
-                        tableauHtml += '<td><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
+                        tableauHtml += '<td class="recetteTable"><img id="'+ (100+index+1) +'" src="png/point_interrogation_image.png"></td>';
                         console.log(ingredientAAjoute);
                     }
                 }
@@ -108,9 +108,9 @@ fetch("http://localhost:3000/jeu_2")
         
                 if (ingredient) {
                     if (index  % 2 === 0 || indexIngredientAAjoute.lenght <=5) {
-                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
+                        tableauHtml += '<td class="recetteTable" id="'+ (100+index+1+ingredientsIds.length)+'">' + ingredient.nom + '</td>';
                     } else {
-                        tableauHtml += '<td id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
+                        tableauHtml += '<td class="recetteTable" id="'+ (100+index+1+ingredientsIds.length)+'">???</td>';
                         indexIngredientAAjoute.push(index+1);
                         ingredientAAjoute.push(ingredient);
                     }

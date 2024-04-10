@@ -105,13 +105,13 @@ function valider()
                             return ordreA - ordreB;
                         });                  
 
-                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' : '+ data.recette[i].nom+' </p> <table style="text-align: center;"> <tr>';
+                        tableauHtml += '<p style="text-align: center;"> Recette possible n°'+(i+1)+' : '+ data.recette[i].nom+' </p> <table class="center"> <tr>';
 
                         ingredientsIds.forEach(ingredientId => {
                             ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
                 
                             if (ingredient) {
-                                tableauHtml += '<td><img src="' + ingredient.image + '"></td>';
+                                tableauHtml += '<td class="recetteTable"><img src="' + ingredient.image + '"></td>';
                             }
                         });
                         tableauHtml += '</tr><tr>';
@@ -120,7 +120,7 @@ function valider()
                             const ingredient = data.ingredients.find(ingredient => ingredient.id === ingredientId);
                 
                             if (ingredient) {
-                                tableauHtml += '<td>' + ingredient.nom + '</td>';
+                                tableauHtml += '<td class="recetteTable">' + ingredient.nom + '</td>';
                             }
                         });     
 
@@ -129,7 +129,7 @@ function valider()
                     }
                     
                     document.getElementById('tableContainer').innerHTML = tableauHtml;
-
+                    ajusterHauteurFond(".consulter");
                 })
                 .catch(error => {
                     console.error('Erreur :', error);
