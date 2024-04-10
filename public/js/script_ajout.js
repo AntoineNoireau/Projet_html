@@ -92,7 +92,7 @@ function creer_liste_deroulante(form, nb, nb_know) {
             div.appendChild(document.createElement('br'));
 
             form.appendChild(div);
-            ajusterHauteurFond();
+            ajusterHauteurFond(".consulter");
         })
         .catch(error => {
             console.error('Erreur :', error);

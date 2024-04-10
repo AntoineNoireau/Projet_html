@@ -150,7 +150,7 @@ fetch("json/ingredients.json")
 
       icone.style.zIndex = "1";
       resultatsDiv.appendChild(icone);
-
+      ajusterHauteurFond(".jeu");
     } else {
       console.log("Aucun ingrédient sélectionné.");
     }
@@ -161,7 +161,6 @@ fetch("json/ingredients.json")
         imagecliquable = ingredientForm.querySelectorAll(".script");
         imagecliquable.forEach(img => {
           img.removeEventListener("click", imageClicked);
-
         });
 
       const verifArray = new Array(recette.length).fill(0);
@@ -236,8 +235,7 @@ fetch("json/ingredients.json")
         });
         
       if (verifArray.every(element => element === 1)) {
-        explodeConfetti(); 
-        
+        explodeConfetti();
 
       }else{
         submitButton.disabled = false;
@@ -251,21 +249,6 @@ fetch("json/ingredients.json")
 
       });
       resultatsDiv.appendChild(document.createElement("br"));
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 }
 

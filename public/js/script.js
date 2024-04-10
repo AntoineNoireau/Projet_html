@@ -74,13 +74,13 @@ function generateEmojiExplosion() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-    ajusterHauteurFond();
+    ajusterHauteurFond(".consulter");
     window.addEventListener('resize', ajusterHauteurFond);
 });
 
-function ajusterHauteurFond() {
+function ajusterHauteurFond(conteneur) {
 
-    var consulter = document.querySelector('.consulter');
+    var consulter = document.querySelector(conteneur);
     var area = document.querySelector('.area');
     var circles = document.querySelector('.circles');
     var differenceHauteur = consulter.offsetTop;

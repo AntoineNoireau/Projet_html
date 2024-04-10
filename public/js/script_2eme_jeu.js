@@ -216,6 +216,7 @@ function verifRecette(nomRecette) {
         } else {
             nbTour++;
             nouvelleLigne(nomRecette, nbTour);
+            ajusterHauteurFond(".jeu");
         }
     }
     updateImage();
