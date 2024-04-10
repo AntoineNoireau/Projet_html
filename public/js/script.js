@@ -30,7 +30,8 @@ function finJeu(texte)
 
     const rejouerBtn = document.createElement("button");
     rejouerBtn.textContent = "Restart";
-    rejouerBtn.classList.add("button");
+    rejouerBtn.classList.add("custom-btn");
+    rejouerBtn.classList.add("btn-7");
 
     rejouerBtn.addEventListener("click", function() {
         window.location.href = window.location.href;
@@ -38,7 +39,8 @@ function finJeu(texte)
 
     const retourBtn = document.createElement("button");
     retourBtn.textContent = "Retour au menu";
-    retourBtn.classList.add("button");
+    retourBtn.classList.add("custom-btn");
+    retourBtn.classList.add("btn-7");
 
     retourBtn.addEventListener("click", function() {
         window.location.href = "index.html";
