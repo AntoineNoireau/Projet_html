@@ -42,15 +42,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var form_recette = document.getElementById('recette');
     var btn_valider = document.querySelector('#ajouter_recette'); // Sélection déplacée ici
+    
     btn_valider.addEventListener('click', function () {
+        let image = document.getElementById('recette_url').value; // Correction ici
+        let nom = document.getElementById('recette_nom').value; // Correction ici
         if (form_recette.checkValidity()) {
             result = RecupIngredient(form_ingredient, current_nb, bool);
-            EnvoieDonnes(document.querySelector('#recette_nom'),)
-
+            console.log(result[1]);
+            EnvoieDonnes(nom, image, result[0], result[1]); // Utilisez .value pour obtenir la valeur des éléments input
+    
         } else {
             alert('Veuillez remplir tous les champs obligatoires.');
         }
-    });
+    });    
 });
 
 ///////////////////////////////Fonction pour générer les cases de chaque ingrédient///////////////////////////////
@@ -171,13 +175,17 @@ function RecupIngredient(form, NbIngredient, bool_new) {
 
 ///////////////////////////////Fonction pour transmettre les données///////////////////////////////
 
-function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_créés){
+function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_crees){
     var data_recette = {
         liste_ingredients: liste_ingredients,
-        liste_ingredients_créés: liste_ingredients_créés,
+        liste_ingredients_crees_nom: liste_ingredients_crees.names,
+        liste_ingredients_crees_image: liste_ingredients_crees.images,
         nom: nom,
         image: image
     };
+
+    console.log(liste_ingredients_crees.names);
+    console.log(liste_ingredients_crees.images);
 
     var requestOptions = {
         method: 'POST',
@@ -203,4 +211,5 @@ function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_créés){
             console.error('Erreur :', error);
         });
 }
+
 

@@ -26,40 +26,71 @@ app.post('/AjoutRecette', (req, res) => {
   
   const nom = req.body.nom;
   const image = req.body.image;
+  const ingredients = req.body.liste_ingredients;
+  const liste_ingredients_crees_nom = req.body.liste_ingredients_crees_nom;
+  const liste_ingredients_crees_image = req.body.liste_ingredients_crees_image;
+  let id_ingredient = [];
+  let id_recette = null;
 
-  // Requête SQL d'insertion des ingrédients
-  const sqlInsertQuery = 'INSERT INTO recettes (nom,url) VALUES (?,?)';
 
-  // Exécution de la requête d'insertion pour chaque ingrédient
-  connection.query(sqlInsertQuery, [nom, image], (err, result) => {
+
+  console.log(nom);
+  console.log(image);
+  console.log(ingredients);
+  console.log(liste_ingredients_crees_nom);
+  console.log(liste_ingredients_crees_image);
+
+  for (let i = 0; i < liste_ingredients_crees_nom.length; i++) {
+    const nom = liste_ingredients_crees_nom[i];
+    const image = liste_ingredients_crees_image[i];
+
+    const sql = 'INSERT INTO ingredients (nom, image) VALUES (?, ?)';
+    connection.query(sql, [nom, image], (err, result) => {
+      if (err) {
+        console.error('Erreur lors de l\'insertion de l\'ingrédient :', err);
+        return;
+      }
+      console.log('Ingrédient inséré avec succès');
+    });
+  }
+
+  for(let i = 0; i<ingredients.length;i++){
+    const sql_1 = 'SELECT id FROM ingredients WHERE nom = ?';
+
+    connection.query(sql_1,ingredients[i], (err, result_id) => {
+      if (err) {
+        console.error('Erreur lors de l\'insertion de l\'ingrédient :', err);
+        return;
+      }
+      id_ingredient.push(result_id);
+      console.log('IDs des ingrédients récupérés avec succès :', id_ingredient[i]);
+    });
+  }
+
+  const sql_2 = 'INSERT INTO recettes (nom, image) VALUES (?, ?)';
+
+  connection.query(sql_2,[nom,image],(err, result_recette) =>{
     if (err) {
-      console.error('Erreur lors de l\'insertion de la recette', nom, ':', err); // Correction de la référence à ingredient
+      console.error('Erreur lors de l\'insertion de la recette :', err);
       return;
     }
-    const id_recette = result.insertId;
-    console.log('Recette', nom, 'insérée avec succès !');
+    id_recette = result_recette;
+    console.log('Recette inséré avec succés !');
   });
 
-  const liste_ingredients = req.body.liste_ingredients;
+  for(let i = 0; i<ingredients.length;i++){
+    const sql_3 = 'INSERT INTO recettesingredients (id_recette, id_ingredient, ordre) VALUES (?, ?, ?)';
 
-  // Requête SQL pour récupérer les IDs des ingrédients
-  const sqlSelectQuery = 'SELECT id FROM ingredients WHERE nom IN (?)';
-  
-  // Exécution de la requête SQL
-  connection.query(sqlSelectQuery, [liste_ingredients], (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des IDs des ingrédients :', err);
-      return;
-    }
-  
-    // Extraire les IDs des résultats de la requête
-    const ids_ingrédients = results.map(result => result.id);
-  
-    // Utiliser les IDs des ingrédients, par exemple, les stocker dans une variable ou les renvoyer au client
-    console.log('IDs des ingrédients :', ids_ingrédients);
-  });  
-  // Envoyer une réponse au client
-  res.json({ message: 'Ingrédients insérés avec succès !' });
+    connection.query(sql_3,[id_recette,id_ingredients[i],i+1], (err, result_id) => {
+      if (err) {
+        console.error('Erreur lors de l\'insertion de l\'ordre:', err);
+        return;
+      }
+      console.log('ligne inséré avec succés :', id_ingredient[i]);
+    });
+  }
+
+
 });
 
 
