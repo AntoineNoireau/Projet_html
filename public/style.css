@@ -94,12 +94,13 @@ footer {
 body{
   margin: 0;
   padding: 0;
+  height: 100vh;
   /* background-image: url('/png/bg_recipedle.jpg');
   background-size: cover; 
   background-repeat: no-repeat; */
   overflow:hidden;
   background-size: cover; 
-  background-repeat: no-repeat; 
+  background-repeat: repeat-y; 
 }
 
 #resultats img {

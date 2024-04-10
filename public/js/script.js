@@ -72,3 +72,25 @@ function generateEmojiExplosion() {
     }
     finJeu("Vous avez perdu ...");
 }
+
+window.addEventListener('DOMContentLoaded', function() {
+    ajusterHauteurFond();
+    window.addEventListener('resize', ajusterHauteurFond);
+});
+
+function ajusterHauteurFond() {
+
+    var consulter = document.querySelector('.consulter');
+    var area = document.querySelector('.area');
+    var circles = document.querySelector('.circles');
+    var differenceHauteur = consulter.offsetTop;
+    var distanceBasPage = document.body.offsetHeight - (consulter.offsetTop + consulter.offsetHeight);
+
+    var hauteurContenu = consulter.offsetHeight;
+    var resize = hauteurContenu + differenceHauteur;
+    if (distanceBasPage > 0) {
+        resize += distanceBasPage;
+    }
+    area.style.height = resize + 'px';
+    circles.style.height = resize + 'px';
+}

@@ -174,7 +174,7 @@ function creer_liste_deroulante(form, nb) {
             div.appendChild(document.createElement('br'));
 
             form.appendChild(div);
-
+            ajusterHauteurFond();
         })
         .catch(error => {
             console.error('Erreur :', error);

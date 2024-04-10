@@ -92,12 +92,13 @@ function creer_liste_deroulante(form, nb, nb_know) {
             div.appendChild(document.createElement('br'));
 
             form.appendChild(div);
-
+            ajusterHauteurFond();
         })
         .catch(error => {
             console.error('Erreur :', error);
             throw error; // Propage l'erreur pour la gérer ultérieurement si nécessaire
         });
+        
     return [i + 1, nb_know + 1];
 }
 
@@ -129,6 +130,7 @@ function creer_champs(form,nb, nb_unknown) {
     //Créer des inputs ici
 
     form.appendChild(div);
+    ajusterHauteurFond();
     return [i + 1,nb_unknown+1];
 }
 
