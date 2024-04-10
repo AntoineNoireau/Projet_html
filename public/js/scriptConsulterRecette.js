@@ -140,3 +140,59 @@ function valider()
             console.error('Erreur :', error);
         });    
 }
+
+function creer_liste_deroulante(form, nb) {
+    var i = nb;
+    var div = document.createElement('div');
+    div.id = 'div_' + i
+    var label = document.createElement('label');
+    //console.log('label_' + i);
+    label.textContent = 'Ingrédient n°' + (i + 1) + ': '; // Texte du label
+    label.id = 'label_' + i;
+    div.appendChild(label);
+
+    fetch('http://localhost:3000/ingredients')
+        .then(response => { return response.json(); })
+        .then(data => {
+            // Création de la liste déroulante
+            var select = document.createElement('select');
+            select.id = 'ingredient_' + i; // ID de la liste déroulante
+            const noms = data.map(item => item.nom);
+
+            // Maintenant, noms contient uniquement les noms des ingrédients
+            //console.log(noms);
+            // Parcours des données et ajout d'une option pour chaque élément
+            noms.forEach(nom => {
+                var option = document.createElement('option');
+                option.innerText = nom; // Utilisez innerText pour définir le texte de l'option
+                select.appendChild(option);
+            });
+
+            // Ajout de la liste déroulante au formulaire
+            div.appendChild(select);
+
+            div.appendChild(document.createElement('br'));
+
+            form.appendChild(div);
+
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            throw error; // Propage l'erreur pour la gérer ultérieurement si nécessaire
+        });
+    return i + 1;
+}
+
+function supprimer_liste_deroulante(form, nb) {
+    if (nb > 0) {
+        var div = form.querySelector('#div_' + (nb - 1));
+        //console.log('label_' + nb);
+        div.remove();
+
+        return nb - 1;
+    }
+    else {
+        error.log('aucun ingrédient à supprimer');
+        return 0;
+    }
+}
