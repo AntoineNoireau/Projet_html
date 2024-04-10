@@ -29,7 +29,6 @@ function finJeu(texte)
     const boutonsDiv = document.createElement("div");
 
     const rejouerBtn = document.createElement("button");
-    rejouerBtn.textContent = "Restart";
     rejouerBtn.classList.add("custom-btn");
     rejouerBtn.classList.add("btn-7");
 
@@ -38,13 +37,21 @@ function finJeu(texte)
     });
 
     const retourBtn = document.createElement("button");
-    retourBtn.textContent = "Retour au menu";
     retourBtn.classList.add("custom-btn");
     retourBtn.classList.add("btn-7");
 
     retourBtn.addEventListener("click", function() {
         window.location.href = "index.html";
     });
+
+    const spanRetour = document.createElement("span");
+    const spanRejouer = document.createElement("span");
+
+    spanRetour.textContent = "Retour au menu";
+    spanRejouer.textContent = "Restart";
+
+    rejouerBtn.appendChild(spanRejouer);
+    retourBtn.appendChild(spanRetour);
 
     boutonsDiv.appendChild(rejouerBtn);
     boutonsDiv.appendChild(retourBtn);
