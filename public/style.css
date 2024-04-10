@@ -40,18 +40,18 @@ img {
   text-align: center;
   font-family: 'Nanum', sans-serif;
   font-size: 8vw;
-  color:goldenrod;
+  color:rgb(131, 85, 16);
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color:darkolivegreen;
+  -webkit-text-stroke-color:rgb(53, 34, 6); 
 }
 
 .soustitre {
   text-align: center;
   font-family: 'Nanum', sans-serif;
   font-size: 4vw;
-  color:goldenrod;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color:darkolivegreen;
+  color:rgb(131, 85, 16);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color:rgb(53, 34, 6); 
 }
 
 .description{
@@ -177,7 +177,7 @@ input[type="range"]::-webkit-slider-thumb{
 
 .consulter {
   position: absolute;
-  top: 18%;
+  top: 25%;
   left: 50%;
   width:fit-content;
   padding: 5px 10px;
