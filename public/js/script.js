@@ -3,6 +3,9 @@ function redirectToGame(page) {
     localStorage.setItem("sliderValue", sliderValue);
     window.location.href = page; 
   }
+function redirect(page) {
+window.location.href = page; 
+}
 function explodeConfetti() {
     for(let index = 0; index <= 30; index++){
         confetti({
