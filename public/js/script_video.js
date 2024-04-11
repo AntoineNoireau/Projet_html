@@ -77,7 +77,7 @@ function init() {
             const p_desc = document.getElementById("desc_princ");
 
             p_titre.textContent = titre;
-            p_like.textContent = likes;
+            p_like.textContent = likes + " Likes";
             p_desc.textContent = desc;
 
         });
