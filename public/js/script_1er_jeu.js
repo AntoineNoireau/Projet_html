@@ -82,7 +82,7 @@ fetch("http://localhost:3000/jeu_1")
       image.src = "png/gris.png";
       ingredientForm.appendChild(image);
       const icone = document.createElement("img");
-      icone.src = "png/" + elem.nom + ".png";
+      icone.src = listingredient.find(ingr => ingr.nom === elem.nom).image;
       icone.style.position = "relative";
 
       // Positionner l'icône au centre de l'image gris
@@ -104,19 +104,22 @@ fetch("http://localhost:3000/jeu_1")
 
       icone.addEventListener("click", imageClicked);
       icone.classList.add("script");
-
-      
-      
-      // Ajoutez la nouvelle div juste après l'élément existant
-      
-      nomIngredient = document.createElement("p");
-      nomIngredient.textContent = elem.nom;
-      nomIngredient.classList.add('div-relative');
-     
       ingredientForm.appendChild(icone);// Ajout du paragraphe à la même div que l'image
-      
-      icone.parentNode.insertBefore(nomIngredient, icone.nextSibling);
-      
+
+      setTimeout(() => {
+        // Créez le paragraphe
+        const nomIngredient = document.createElement("p");
+        nomIngredient.textContent = elem.nom;
+        nomIngredient.classList.add('div-relative');
+    
+        // Déterminez la position du paragraphe en fonction de l'icône
+        nomIngredient.style.position = 'absolute';
+        nomIngredient.style.left = icone.getBoundingClientRect().left  -ingredientForm.getBoundingClientRect().left +0.5*nomIngredient.style.width+ "px";
+        nomIngredient.style.top = 50 + "px";
+    
+        // Insérez le paragraphe juste après l'icône
+        icone.parentNode.insertBefore(nomIngredient, icone.nextSibling);
+    }, 0);
 
     })
 

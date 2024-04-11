@@ -19,8 +19,9 @@ img {
   margin-left: 5px;
 }
 .div-relative {
-  position: relative;
+  position: absolute;
   display: inline-block; /* Permet aux div d'être alignées horizontalement */
+  top: 50px;
 }
 .button:hover {
   background-color: #ee7000;
@@ -28,7 +29,7 @@ img {
 
 .centerbtn {
   position: absolute;
-  top: 50%;
+  
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
