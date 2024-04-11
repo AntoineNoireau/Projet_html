@@ -76,7 +76,7 @@ fetch("http://localhost:3000/jeu_1")
 
       const ingredientForm = document.getElementById("ingredientForm");
 
-      const div_nom = document.getElementById("nom_ingr");
+
 
       const image = document.createElement("img");
       image.src = "png/gris.png";
@@ -105,8 +105,6 @@ fetch("http://localhost:3000/jeu_1")
       icone.addEventListener("click", imageClicked);
       icone.classList.add("script");
       ingredientForm.appendChild(icone);// Ajout du paragraphe à la même div que l'image
-
-      setTimeout(() => {
         // Créez le paragraphe
         const nomIngredient = document.createElement("p");
         nomIngredient.textContent = elem.nom;
@@ -114,11 +112,16 @@ fetch("http://localhost:3000/jeu_1")
     
         // Déterminez la position du paragraphe en fonction de l'icône
         nomIngredient.style.position = 'absolute';
-        nomIngredient.style.left = icone.getBoundingClientRect().left  -ingredientForm.getBoundingClientRect().left +0.5*nomIngredient.style.width+ "px";
+        icone.parentNode.insertBefore(nomIngredient, icone.nextSibling);
+
+
+      
+      setTimeout(() => {
+        console.log(nomIngredient.offsetWidth)
+        nomIngredient.style.left = icone.getBoundingClientRect().left  -ingredientForm.getBoundingClientRect().left + 0.5*icone.width -0.5*nomIngredient.offsetWidth+ "px";
         nomIngredient.style.top = 50 + "px";
     
         // Insérez le paragraphe juste après l'icône
-        icone.parentNode.insertBefore(nomIngredient, icone.nextSibling);
     }, 0);
 
     })
