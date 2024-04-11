@@ -82,7 +82,6 @@ function generateEmojiExplosion() {
 
 window.addEventListener('DOMContentLoaded', function() {
     ajusterHauteurFond(".consulter");
-    window.addEventListener('resize', ajusterHauteurFond);
 });
 
 function ajusterHauteurFond(conteneur) {
