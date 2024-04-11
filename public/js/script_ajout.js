@@ -130,7 +130,7 @@ function creer_champs(form,nb, nb_unknown) {
     //Créer des inputs ici
 
     form.appendChild(div);
-    ajusterHauteurFond();
+    ajusterHauteurFond(".consulter");
     return [i + 1,nb_unknown+1];
 }
 
