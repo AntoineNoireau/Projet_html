@@ -103,9 +103,7 @@ function init() {
 
                 imgtitre = document.getElementById("texte" +videoId.toString());
                 imgtitre.textContent = titre;
-
-
-
+                ajusterHauteurFond(".video");
             })
 
     });
