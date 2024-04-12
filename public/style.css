@@ -18,14 +18,18 @@ img {
   margin-right: 5px;
   margin-left: 5px;
 }
-
+.div-relative {
+  position: absolute;
+  display: inline-block; /* Permet aux div d'être alignées horizontalement */
+  top: 50px;
+}
 .button:hover {
   background-color: #ee7000;
 }
 
 .centerbtn {
   position: absolute;
-  top: 50%;
+  
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -110,6 +114,10 @@ body{
   border-radius: 50%; /* Bordure arrondie pour les images */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Ombre portée pour les images */
 }
+#nom_ingr p{
+  display: inline-block;
+
+}
 
 #ingredientForm img {
   width: 50px; 
@@ -171,6 +179,17 @@ input[type="range"]::-webkit-slider-thumb{
 }
 .result1 {
   left: 30%;
+}
+
+
+.ingredient-image {
+  display: block; /* Affiche les images en bloc (une au-dessus de l'autre) */
+  margin-bottom: 10px; /* Marge en bas pour séparer les images */
+}
+
+
+.ingredient-name {
+  text-align: center; /* Centre le texte par rapport à l'image */
 }
 
 .descjeu {
