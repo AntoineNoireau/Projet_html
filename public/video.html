@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="image.png"> <!-- Si votre favicon est au format .png -->
+
 
     <title>Video Player</title>
 </head>
@@ -26,7 +28,7 @@
     <div class="titre">RECIPEDLE - Nos videos</div>
 </br>
     <div id="video_princ">
-        <iframe width="560" height="315" src="" frameborder="0" allowfullscreen id=""></iframe>
+        <iframe width="560" height="315" src="" frameborder="0" class=""> allowfullscreen id=""></iframe>
         <p id = "titre_princ"></p>
         <p id = "like_princ"></p>
         <p id = "desc_princ"></p>
@@ -36,6 +38,10 @@
     <div id="video_sec" class="image-droite">
  
     </div>    
+
+    <center>
+          <button onclick="redirect('index.html')" class="custom-btn btn-7"><span>Retour au menu</span></button>
+      </center>
     <script src="/js/script.js"></script>
     <script src="js/script_video.js">  </script>
 </div>

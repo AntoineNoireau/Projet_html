@@ -463,8 +463,14 @@ body {
   height: 100vh; 
   background-attachment: fixed;
   background-repeat: repeat-y; 
+
 }
 
+#video_princ
+{
+  position: relative; 
+  z-index: 9999; 
+}
 .circles{
     position: absolute;
     top: 0;
@@ -473,6 +479,7 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
 
 .circles li {
     position: absolute;

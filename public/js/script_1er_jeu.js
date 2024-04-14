@@ -119,7 +119,7 @@ fetch("http://localhost:3000/jeu_1")
       setTimeout(() => {
         console.log(nomIngredient.offsetWidth)
         nomIngredient.style.left = icone.getBoundingClientRect().left  -ingredientForm.getBoundingClientRect().left + 0.5*icone.width -0.5*nomIngredient.offsetWidth+ "px";
-        nomIngredient.style.top = 50 + "px";
+        nomIngredient.style.top = icone.getBoundingClientRect().top  -ingredientForm.getBoundingClientRect().top + icone.height + "px";
     
         // Insérez le paragraphe juste après l'icône
     }, 0);
