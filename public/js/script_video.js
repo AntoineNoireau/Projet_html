@@ -56,12 +56,13 @@ function initialisation() {
 function init() {
     const apiKey = 'AIzaSyAPsKxEFAuXUZ-noDkdfrSQwW4xJ7Y4z-g';
     var iframe = document.querySelector("iframe");
-    var videoId = iframe.getAttribute("id") -1;
+    var videoId = iframe.getAttribute("id");
 
-    var videoUrl = "https://www.youtube.com/embed/" + recetteBDD[videoId].url;
+
+    var videoUrl = "https://www.youtube.com/embed/" + recetteBDD.find(objet => objet.id == videoId).url;
     iframe.setAttribute("src", videoUrl);
 
-    const apiUrlVidéoprinc = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=" + recetteBDD[videoId].url + "&key=" + apiKey;
+    const apiUrlVidéoprinc = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=" + recetteBDD.find(objet => objet.id == videoId).url + "&key=" + apiKey;
     fetch(apiUrlVidéoprinc)
         .then(response => {
             if (!response.ok) {
@@ -104,7 +105,6 @@ function init() {
                 return response.json();
             })
             .then(data => {
-                console.log(data)
                 const titre = data.items[0].snippet.title;
                 const miniaurl = data.items[0].snippet.thumbnails.high.url;
                 image.setAttribute("src", miniaurl);
