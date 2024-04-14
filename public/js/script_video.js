@@ -7,9 +7,9 @@ function initialisation() {
         .then(response => response.json())
         .then(data => {
             recetteBDD = data;
-            console.log(recetteBDD); // Déplacez le console.log ici
+            console.log(recetteBDD);
             recette0 = document.querySelector("iframe");
-            recette0.id = recetteBDD[0].id-1;
+            recette0.id = recetteBDD[0].id;
 
             
 
@@ -18,12 +18,14 @@ function initialisation() {
             var divImages = document.getElementById("video_sec");
 
             // Parcourez les recettes restantes dans recetteBDD à partir de l'index 1
-            for (var i = 1; i < recetteBDD.length; i++) {
-                // Créez une nouvelle image
+            recetteBDDsansPremièreRecette = recetteBDD.slice(1);
+            console.log(recetteBDDsansPremièreRecette)
+            recetteBDDsansPremièreRecette.forEach(element => {
+
                 var nouvelleImage = document.createElement("img");
                 
                 // Définissez l'ID de l'image sur le nom de la recette
-                nouvelleImage.id = recetteBDD[i].id-1;
+                nouvelleImage.id = element.id;
 
                 nouvelleImage.src = "";
 
@@ -34,12 +36,13 @@ function initialisation() {
                 // Ajoutez l'image à la div d'images
                 divImages.appendChild(nouvelleImage);
                 var titreSec = document.createElement("p");
-                titreSec.id = "texte" +i;
+                titreSec.id = "texte" +element.id;
                 divImages.appendChild(titreSec);
                 divImages.style.position = "relative";
                 divImages.style.zIndex = "9999";
                 divImages.appendChild(document.createElement("br"));
-            }
+            });
+
             init();
 
             
@@ -53,7 +56,8 @@ function initialisation() {
 function init() {
     const apiKey = 'AIzaSyAPsKxEFAuXUZ-noDkdfrSQwW4xJ7Y4z-g';
     var iframe = document.querySelector("iframe");
-    var videoId = iframe.getAttribute("id");
+    var videoId = iframe.getAttribute("id") -1;
+
     var videoUrl = "https://www.youtube.com/embed/" + recetteBDD[videoId].url;
     iframe.setAttribute("src", videoUrl);
 
@@ -88,8 +92,10 @@ function init() {
 
     images.forEach(function (image) {
         const videoId = image.id;
+ 
 
-        const apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=" + recetteBDD[videoId].url + "&key=" + apiKey;
+
+        const apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=" + recetteBDD.find(objet => objet.id == videoId).url + "&key=" + apiKey;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -98,7 +104,7 @@ function init() {
                 return response.json();
             })
             .then(data => {
-                //console.log(data)
+                console.log(data)
                 const titre = data.items[0].snippet.title;
                 const miniaurl = data.items[0].snippet.thumbnails.high.url;
                 image.setAttribute("src", miniaurl);
@@ -123,9 +129,11 @@ images.forEach(function (image) {
 
 function imageClicked(event) {
     var imageId = event.target.id;
+    console.log("TARGET ID "+ imageId);
     //changement des liens
     var video = document.querySelector("iframe");
     var linktemp = video.id
+    console.log("IFRAME ID "+ linktemp);
     video.id = imageId;
     event.target.id = linktemp;
     imgtitre = document.getElementById("texte" +imageId);
