@@ -152,7 +152,8 @@ function imageClicked(event) {
     resultatsDiv.appendChild(image);
 
     const icone = document.createElement("img");
-    icone.src = "png/" + selectedIngredient + ".png";
+    icone.src = listingredient.find(ingr => ingr.nom === selectedIngredient).image;
+
     icone.style.position = "relative";
 
     // Positionner l'icône au centre de l'image gris
