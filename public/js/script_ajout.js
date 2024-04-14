@@ -46,10 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
     btn_valider.addEventListener('click', function () {
         let image = document.getElementById('recette_url').value; // Correction ici
         let nom = document.getElementById('recette_nom').value; // Correction ici
+        let video = CodeVideo(document.getElementById('recette_video').value); // Correction ici
         if (form_recette.checkValidity()) {
             result = RecupIngredient(form_ingredient, current_nb, bool);
-            console.log(result[1]);
-            EnvoieDonnes(nom, image, result[0], result[1]); // Utilisez .value pour obtenir la valeur des éléments input
+            console.log(video);
+            EnvoieDonnes(nom, image, video, result[0], result[1]); // Utilisez .value pour obtenir la valeur des éléments input
     
         } else {
             alert('Veuillez remplir tous les champs obligatoires.');
@@ -175,16 +176,22 @@ function RecupIngredient(form, NbIngredient, bool_new) {
     }
     return [tab_glob, tab_unknow];
 }
+///////////////////////////////Fonction pour extraire le code du lien Youtube///////////////////////////////
 
+function CodeVideo(url) {
+    const params = new URLSearchParams(new URL(url).search);
+    return params.get('v');
+}
 
 ///////////////////////////////Fonction pour transmettre les données///////////////////////////////
 
-function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_crees){
+function EnvoieDonnes(nom, image, video, liste_ingredients, liste_ingredients_crees) {
     var data_recette = {
         liste_ingredients: liste_ingredients,
         liste_ingredients_crees_nom: liste_ingredients_crees.names,
         liste_ingredients_crees_image: liste_ingredients_crees.images,
         nom: nom,
+        video: video,
         image: image
     };
 
@@ -202,18 +209,43 @@ function EnvoieDonnes(nom,image,liste_ingredients, liste_ingredients_crees){
     var url = 'http://localhost:3000/AjoutRecette';
 
     fetch(url, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors de la requête : ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Réponse du serveur :', data);
+        .then(response => response.text()) // Get the text response
+        .then(text => {
+            console.log('Réponse du serveur :', text);
+            afficherMessage(text); // Handle the response based on the text returned
         })
         .catch(error => {
             console.error('Erreur :', error);
+            afficherMessage('ERROR'); // Assume an error if the network request itself fails
         });
 }
+
+///////////////////////////////Fonction pour traduire le message renvoyé par la bdd///////////////////////////////
+
+function afficherMessage(responseText) {
+    const messageContainer = document.getElementById('messageContainer'); // Make sure this container exists in your HTML
+    messageContainer.innerHTML = ''; // Clear previous messages
+
+    let message = document.createElement('p');
+    switch (responseText) {
+        case 'OK':
+            message.textContent = 'Recette bien ajoutée !';
+            message.style.color = 'green';
+            break;
+        case 'NON':
+            message.textContent = 'Recette déjà existante, essayez un autre nom ou contactez le support.';
+            message.style.color = 'darkorange';
+            break;
+        case 'ERROR':
+            message.textContent = 'Erreur dans l\'insertion de la recette. Contactez le support.';
+            message.style.color = 'red';
+            break;
+        default:
+            message.textContent = 'Réponse inattendue du serveur: ' + responseText;
+            message.style.color = 'grey';
+    }
+    messageContainer.appendChild(message);
+}
+
 
 
