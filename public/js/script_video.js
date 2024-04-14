@@ -138,7 +138,7 @@ function imageClicked(event) {
     event.target.id = linktemp;
     imgtitre = document.getElementById("texte" +imageId);
     imgtitre.id = ("texte" + linktemp);
-
+    ajusterHauteurFond(".video_princ");
     init();
 
 

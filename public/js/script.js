@@ -81,7 +81,14 @@ function generateEmojiExplosion() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-    ajusterHauteurFond(".consulter");
+    var consulter = document.querySelector(".consulter");
+    if(consulter == null)
+    {
+        ajusterHauteurFond(".image-droite");
+    }
+    else{
+        ajusterHauteurFond(".consulter");
+    }
 });
 
 function ajusterHauteurFond(conteneur) {
@@ -91,11 +98,16 @@ function ajusterHauteurFond(conteneur) {
     var circles = document.querySelector('.circles');
     var differenceHauteur = consulter.offsetTop;
     var distanceBasPage = document.body.offsetHeight - (consulter.offsetTop + consulter.offsetHeight);
-
     var hauteurContenu = consulter.offsetHeight;
     var resize = hauteurContenu + differenceHauteur;
+
     if (distanceBasPage > 0) {
         resize += distanceBasPage;
+    }
+
+    if(conteneur == ".image-droite")
+    {
+        resize = 2000;  
     }
     area.style.height = resize + 'px';
     circles.style.height = resize + 'px';
