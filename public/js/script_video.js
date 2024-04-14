@@ -58,7 +58,7 @@ function init() {
     var iframe = document.querySelector("iframe");
     var videoId = iframe.getAttribute("id");
 
-
+    console.log(recetteBDD.find(objet => objet.id == videoId).url)
     var videoUrl = "https://www.youtube.com/embed/" + recetteBDD.find(objet => objet.id == videoId).url;
     iframe.setAttribute("src", videoUrl);
 
@@ -138,8 +138,9 @@ function imageClicked(event) {
     event.target.id = linktemp;
     imgtitre = document.getElementById("texte" +imageId);
     imgtitre.id = ("texte" + linktemp);
-    ajusterHauteurFond(".video_princ");
     init();
+    ajusterHauteurFond(".video_princ");
+    
 
 
 
