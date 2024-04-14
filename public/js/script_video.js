@@ -36,6 +36,8 @@ function initialisation() {
                 var titreSec = document.createElement("p");
                 titreSec.id = "texte" +i;
                 divImages.appendChild(titreSec);
+                divImages.style.position = "relative";
+                divImages.style.zIndex = "9999";
                 divImages.appendChild(document.createElement("br"));
             }
             init();
