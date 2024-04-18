@@ -3,9 +3,12 @@
 
 ## Description du projet
 
-**RecipeDle** est un jeu inspiré par Motus, où les ingrédients remplacent les lettres et les recettes les mots. Le jeu propose deux modes :
+**RecipeDle** est un jeu inspiré par Motus, où les ingrédients remplacent les lettres et les recettes les mots. Le jeu propose deux modes plus quelques fonctionnalités :
 - **Mode 1** : Le nom de la recette est donné, et le joueur doit retrouver les ingrédients qui composent cette recette dans le bon ordre.
 - **Mode 2** : Les ingrédients sont fournis dans l'ordre correct, et le joueur doit deviner le nom de la recette.
+- **Ajout de Recette** : L'utilisateur via cette fenêtre peut ajouter des recettes à la base de donnée. Il doit remplir les différents champs demandés.
+- **Consultation de Recette** : L'utilisateur peut mettre tous les ingrédients qu'il souhaite et regarder les recettes composé des ingrédients donnés dans la base de données.
+- **Vidéo** : On y trouve toutes les vidéos attaché au recette.
 
 ## Équipe
 
@@ -37,9 +40,8 @@
    - Ouvrez le terminal intégré (Terminal > Nouveau terminal).
    - Tapez la commande suivante :
      ```
-     git clone [URL_DU_DÉPÔT_GIT]
+     git clone https://github.com/AntoineNoireau/Projet_html.git
      ```
-   - Remplacez `[URL_DU_DÉPÔT_GIT]` par l'URL de votre dépôt Git.
 
 ### Installation de XAMPP
 
