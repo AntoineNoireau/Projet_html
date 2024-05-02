@@ -614,4 +614,6 @@ body {
   border-radius: 8px;
 }
 
-
+#video_sec img:hover {
+  cursor: pointer;
+}
