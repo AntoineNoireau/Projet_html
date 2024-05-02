@@ -141,14 +141,7 @@ input[type="range"]::-webkit-slider-thumb{
 }
 
 
-.image-droite {
-  width: 500px; /* Largeur de l'image */
-  height: 250px; /* Hauteur de l'image */
-  float: right; /* Alignement à droite */
-  margin-left: 10px; /* Marge à gauche pour éviter le chevauchement du contenu adjacent */
-  margin-right: 100px;
-  margin-bottom: 10px; /* Marge en bas pour éviter le chevauchement du contenu en dessous */
-}
+
 
 .jeu {
   position: absolute;
@@ -603,9 +596,12 @@ body {
 }
 
 #video_sec {
+  position: absolute;
+  top: 21.6%; /* Position verticale */
+  right: 8%; /* Position horizontale */
+  /*transform: translate(-40%, -65%); /* Centrer l'élément*/
   margin: 20px auto;
-  width: 80%;
-  max-width: 800px;
+  width: 10%;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
@@ -617,3 +613,5 @@ body {
   height: auto;
   border-radius: 8px;
 }
+
+
