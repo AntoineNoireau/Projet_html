@@ -38,8 +38,8 @@ function initialisation() {
                 var titreSec = document.createElement("p");
                 titreSec.id = "texte" +element.id;
                 divImages.appendChild(titreSec);
-                divImages.style.position = "relative";
-                divImages.style.zIndex = "9999";
+                //divImages.style.position = "relative";
+                //divImages.style.zIndex = "9999";
                 divImages.appendChild(document.createElement("br"));
             });
 
